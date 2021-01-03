@@ -12,14 +12,14 @@ All of the disassembled games below are a work in progress. At a minimum all com
 
 ### [Gridrunner](https://github.com/mwenge/gridrunner)
 
-<img src="https://www.mobygames.com/images/covers/l/34991-gridrunner-commodore-64-front-cover.jpg" height=300><img src="https://user-images.githubusercontent.com/58846/103443482-9fb16180-4c57-11eb-9403-4968bd16287f.gif" height=300>
+[<img src="https://www.mobygames.com/images/covers/l/34991-gridrunner-commodore-64-front-cover.jpg" height=300>](https://github.com/mwenge/gridrunner)[<img src="https://user-images.githubusercontent.com/58846/103443482-9fb16180-4c57-11eb-9403-4968bd16287f.gif" height=300>](https://github.com/mwenge/gridrunner)
 
 - Contains a good overview of how to go about disassembling a C64 game.
 - Links to [a version you can try out in your browser.](https://mwenge.github.io/gridrunner.xyz)
 - A good first pass at documenting the source code.
 
 ### [Matrix](https://github.com/mwenge/matrix)
-<img src="https://user-images.githubusercontent.com/58846/102926230-8f95c700-448c-11eb-9895-d1f0827f2aff.png" height=300><img src="https://user-images.githubusercontent.com/58846/103443412-f8342f00-4c56-11eb-8658-065a48b5f8e3.gif" height=300>
+[<img src="https://user-images.githubusercontent.com/58846/102926230-8f95c700-448c-11eb-9895-d1f0827f2aff.png" height=300><img src="https://user-images.githubusercontent.com/58846/103443412-f8342f00-4c56-11eb-8658-065a48b5f8e3.gif" height=300>](https://github.com/mwenge/matrix)
 
 The successor to Gridrunner. Faster, more enoyable. An underrated game.
 
