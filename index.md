@@ -60,9 +60,20 @@ Minter's magnum opus.
 
 The page also contains disassemblies and playable versions of the numerous demos Minter wrote preparing Iridis Alpha.
 
-[<img src="https://user-images.githubusercontent.com/58846/103443219-cfab3580-4c54-11eb-8046-0f5f3bac9c79.gif" height=200>](https://github.com/mwenge/iridisalpha/tree/master/dna)[<img src="https://user-images.githubusercontent.com/58846/103443189-80650500-4c54-11eb-9a32-5b14fb383ca1.gif" height=200>](https://github.com/mwenge/iridisalpha/tree/master/torus)
-[<img src="https://user-images.githubusercontent.com/58846/103443165-527fc080-4c54-11eb-95f1-ee020255cee6.gif" height=200>](https://github.com/mwenge/iridisalpha/tree/master/torus2)[<img src="https://user-images.githubusercontent.com/58846/103442890-dd12f080-4c51-11eb-9a85-46404fbc6849.gif" height=200>](https://github.com/mwenge/iridisalpha/tree/master/iridis_spaceship)
-[<img src="https://user-images.githubusercontent.com/58846/103455890-eac78500-4ce8-11eb-9d92-867c0c3ea825.gif" width=500>](https://github.com/mwenge/iridisalpha/tree/master/mif)
+### [DNA](https://github.com/mwenge/iridisalpha/tree/master/dna)
+[<img src="https://user-images.githubusercontent.com/58846/103443219-cfab3580-4c54-11eb-8046-0f5f3bac9c79.gif" width=400>](https://github.com/mwenge/iridisalpha/tree/master/dna)
+
+### [Torus](https://github.com/mwenge/iridisalpha/tree/master/torus)
+[<img src="https://user-images.githubusercontent.com/58846/103443189-80650500-4c54-11eb-9a32-5b14fb383ca1.gif" width=400>](https://github.com/mwenge/iridisalpha/tree/master/torus)
+
+### [Torus 2 (Taurus)](https://github.com/mwenge/iridisalpha/tree/master/torus2)
+[<img src="https://user-images.githubusercontent.com/58846/103443165-527fc080-4c54-11eb-95f1-ee020255cee6.gif" width=400>](https://github.com/mwenge/iridisalpha/tree/master/torus2)
+
+### [Iridis Spaceship](https://github.com/mwenge/iridisalpha/tree/master/iridis_spaceship)
+[<img src="https://user-images.githubusercontent.com/58846/103442890-dd12f080-4c51-11eb-9a85-46404fbc6849.gif" width=400>](https://github.com/mwenge/iridisalpha/tree/master/iridis_spaceship)
+
+### [Made in France](https://github.com/mwenge/iridisalpha/tree/master/mif)
+[<img src="https://user-images.githubusercontent.com/58846/103455890-eac78500-4ce8-11eb-9d92-867c0c3ea825.gif" width=400>](https://github.com/mwenge/iridisalpha/tree/master/mif)
 
 
 [C64 CharSet]:https://www.c64-wiki.com/wiki/Character_set
