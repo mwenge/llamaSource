@@ -1,4 +1,4 @@
-## What is this about?
+## What is this?
 
 One by one I'm disassembling some games and programs published for the Commodore 64 by Llamasoft (i.e. Jeff Minter) in the 1980s.
 
@@ -27,8 +27,9 @@ The successor to Gridrunner. Faster, more enoyable. An underrated game.
 - First pass, commenting main game loop, character set data.
 
 ### [Psychedelia](https://github.com/mwenge/psychedelia)
-Minter's first light synthesizer.
 <img src="https://user-images.githubusercontent.com/58846/103463469-7dd1e080-4d24-11eb-93d2-7673ba031074.gif" width=500>
+
+Minter's first light synthesizer.
 
 - Links to a version you can try out in your browser.
 - First pass, separating code and game data.
