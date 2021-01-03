@@ -40,8 +40,10 @@ Minter's first light synthesizer.
 Minter's magnum opus.
 
 - Links to [a version you can try out in your browser.](https://iridisalpha.xyz)
-- Contains disassemblies and playable versions of the numerous demos Minter wrote preparing Iridis Alpha.
 
+The page also contains disassemblies and playable versions of the numerous demos Minter wrote preparing Iridis Alpha.
+  [<img src="https://user-images.githubusercontent.com/58846/103443219-cfab3580-4c54-11eb-8046-0f5f3bac9c79.gif" width=300>](https://github.com/mwenge/iridisalpha/tree/master/dna)[<img src="https://user-images.githubusercontent.com/58846/103443189-80650500-4c54-11eb-9a32-5b14fb383ca1.gif" width=300>](https://github.com/mwenge/iridisalpha/tree/master/torus)
+[<img src="https://user-images.githubusercontent.com/58846/103443165-527fc080-4c54-11eb-95f1-ee020255cee6.gif" width=300>](https://github.com/mwenge/iridisalpha/tree/master/torus2)[<img src="https://user-images.githubusercontent.com/58846/103455890-eac78500-4ce8-11eb-9d92-867c0c3ea825.gif" width=500>](https://github.com/mwenge/iridisalpha/tree/master/mif)
 
 [C64 CharSet]:https://www.c64-wiki.com/wiki/Character_set
 [CBM Prg Studio]:https://www.ajordison.co.uk/
