@@ -1,37 +1,36 @@
-## Welcome to GitHub Pages
+## What is this about?
 
-You can use the [editor on GitHub](https://github.com/mwenge/llamasoftsourcecode/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+One by one I'm disassembling some games and programs published for the Commodore 64 by Llamasoft (i.e. Jeff Minter) in the 1980s.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Some of these are relatively straightforward. In such cases I can simply disassemble the code (with a tool such as [Regenerator], split out the characterset and sprite data from the game logic, and recompile to a binary that matches exactly (byte for byte) the original game file. After that, I can start labelling and commenting the code to make explicit the workings of the game.
 
-### Markdown
+In other cases, the task isn't so trivial. Larger games such as Batalyx and Iridis Alpha used compression and copy-protection software so it is much harder, and may even be impossible, to produce a disassembled version that compiles a target which will match the original `prg` file. For these guys, I think I'm going to have to work from a snapshot of the game while it's running and just accept that the binary I end up compiling will not be a bytewise match, and may have bugs. If I don't find a way of reverse-engineering the compression and copy-protection that's what I will end up doing, for now.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+All of the disassembled games below are a work in progress. At a minimum all compile and run. The work that remains in all cases is to continue improving the comments in the code and figuring out the operation of the routines, assigning labels and variable names that are meaningful. For now, though, my focus is on completing a first pass on many games as possible. 
 
-```markdown
-Syntax highlighted code block
+## Games
 
-# Header 1
-## Header 2
-### Header 3
+### [Gridrunner](https://github.com/mwenge/gridrunner)
 
-- Bulleted
-- List
+<img src="https://www.mobygames.com/images/covers/l/34991-gridrunner-commodore-64-front-cover.jpg" height=300><img src="https://user-images.githubusercontent.com/58846/103443482-9fb16180-4c57-11eb-9403-4968bd16287f.gif" height=300>
 
-1. Numbered
-2. List
+- Contains a good overview of how to go about disassembling a C64 game.
+- Links to a version you can try out in your browser.
+- A good first pass at documenting the source code.
 
-**Bold** and _Italic_ and `Code` text
+### [Matrix](https://github.com/mwenge/matrix)
+The successor to Gridrunner. Faster, more enoyable. An underrated game.
+<img src="https://user-images.githubusercontent.com/58846/102926230-8f95c700-448c-11eb-9895-d1f0827f2aff.png" height=300><img src="https://user-images.githubusercontent.com/58846/103443412-f8342f00-4c56-11eb-8658-065a48b5f8e3.gif" height=300>
 
-[Link](url) and ![Image](src)
-```
+- Links to a version you can try out in your browser.
+- First pass, commenting main game loop, character set data.
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+### [Psychedelia](https://github.com/mwenge/psychedelia)
+Minter's first light synthesizer.
+<img src="https://user-images.githubusercontent.com/58846/103463469-7dd1e080-4d24-11eb-93d2-7673ba031074.gif" width=500>
 
-### Jekyll Themes
+- Links to a version you can try out in your browser.
+- First pass, separating code and game data.
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/mwenge/llamasoftsourcecode/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
 
-### Support or Contact
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
