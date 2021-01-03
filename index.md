@@ -1,5 +1,3 @@
-## What is this?
-
 One by one I'm disassembling some games and programs published for the Commodore 64 by Llamasoft (i.e. Jeff Minter) in the 1980s.
 
 Some of these are relatively straightforward. In such cases I can simply disassemble the code (with a tool such as [Regenerator], split out the characterset and sprite data from the game logic, and recompile to a binary that matches exactly (byte for byte) the original game file. After that, I can start labelling and commenting the code to make explicit the workings of the game.
