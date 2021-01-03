@@ -31,6 +31,17 @@ The successor to Gridrunner. Faster, more enoyable. An underrated game.
 <br> 
 <br> 
 
+## [Voidrunner](https://github.com/mwenge/voidrunner)
+
+<img src="https://user-images.githubusercontent.com/58846/103489314-9b2daa00-4e0b-11eb-8ba1-3206607f8c19.png" height=300><img src="https://user-images.githubusercontent.com/58846/103489278-4c801000-4e0b-11eb-92e2-db6386d1d4b5.gif" height=300>
+
+Written for the Commodore 16 in 1987, Voidrunner is a continuation of the Gridrunner series. It takes advantage of the extra colors available to the C16 and has rapid gameplay. The disassembly is very clean as there is no compression or copy protection used in the binary. It should be possible to arrive at a very coherent disassembled source file in future work.
+
+- A good first pass at diassembling and documenting the source code.
+
+<br> 
+<br> 
+
 ## [Psychedelia](https://github.com/mwenge/psychedelia)
 [<img src="https://user-images.githubusercontent.com/58846/103469199-9e685d80-4d59-11eb-96c8-386b3a530809.png" height=300><img src="https://user-images.githubusercontent.com/58846/103463469-7dd1e080-4d24-11eb-93d2-7673ba031074.gif" height=300>](https://github.com/mwenge/psychedelia)
 
