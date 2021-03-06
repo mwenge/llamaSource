@@ -58,6 +58,17 @@ The page also contains disassemblies and playable versions of the numerous demos
 
 <br> 
 <br> 
+<br> 
+<br> 
+
+## [Matrix](https://github.com/mwenge/matrix)
+[<img src="https://user-images.githubusercontent.com/58846/102926230-8f95c700-448c-11eb-9895-d1f0827f2aff.png" height=300><img src="https://user-images.githubusercontent.com/58846/103443412-f8342f00-4c56-11eb-8658-065a48b5f8e3.gif" height=300>](https://github.com/mwenge/matrix)
+
+The successor to Gridrunner. Faster, more enoyable. An underrated game.
+
+- Links to [a version you can try out in your browser.](https://mwenge.github.io/matrix.xyz)
+- A good first pass at documenting the source code.
+
 
 ## [Hellgate](https://github.com/mwenge/hellgate)
 <img src="https://www.mobygames.com/images/covers/l/510954-hellgate-commodore-64-front-cover.jpg" height=300><img src="https://user-images.githubusercontent.com/58846/104652406-f9327b00-56b0-11eb-948b-101ce169ef71.gif" height=300>
@@ -123,6 +134,12 @@ as it feels comparatively slow compared to other Minger games.
 - Links to [a version you can try out in your browser.](https://mwenge.github.io/sheepinspace)
 - First pass, separating code and game data.
 
+## [Revenge of the Mutant Camels](https://github.com/mwenge/revengeofthemutantcamels)
+<img src="https://upload.wikimedia.org/wikipedia/en/5/50/Revenge_of_the_Mutant_Camels_Coverart.png" height=300><img src="https://user-images.githubusercontent.com/58846/108626235-0e848d00-7447-11eb-869a-ca974b865506.gif" height=300>
+
+- Links to [a version you can try out in your browser.](https://mwenge.github.io/sheepinspace)
+- First pass, separating code and game data.
+
 [C64 CharSet]:https://www.c64-wiki.com/wiki/Character_set
 [CBM Prg Studio]:https://www.ajordison.co.uk/
 [6502 tutorial]:https://skilldrick.github.io/easy6502/
@@ -131,15 +148,4 @@ as it feels comparatively slow compared to other Minger games.
 [C64 wiki]:https://www.c64-wiki.com/wiki/Memory_Map#Cartridge_ROM
 [Infiltrator]:https://csdb.dk/release/?id=100129
 [Regenerator]:https://www.c64brain.com/tools/commodore-64-regenerator-1-7/
-
-<br> 
-<br> 
-
-## [Matrix](https://github.com/mwenge/matrix)
-[<img src="https://user-images.githubusercontent.com/58846/102926230-8f95c700-448c-11eb-9895-d1f0827f2aff.png" height=300><img src="https://user-images.githubusercontent.com/58846/103443412-f8342f00-4c56-11eb-8658-065a48b5f8e3.gif" height=300>](https://github.com/mwenge/matrix)
-
-The successor to Gridrunner. Faster, more enoyable. An underrated game.
-
-- Links to [a version you can try out in your browser.](https://mwenge.github.io/matrix.xyz)
-- First pass, commenting main game loop, character set data.
 
