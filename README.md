@@ -1,4 +1,4 @@
-# The Llamsoft Source Code Project
+# The Llamasoft Source Code Project
 ## A project for disassembling and commenting the source code for C64 Llamasoft software
 
 One by one I'm disassembling some games and programs published for the
