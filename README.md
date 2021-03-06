@@ -143,6 +143,11 @@ as it feels comparatively slow compared to other Minger games.
 - Links to [a version you can try out in your browser.](https://mwenge.github.io/sheepinspace)
 - First pass, separating code and game data.
 
+## [Attack of the Mutant Camels](https://github.com/C64-Mark/Attack-of-the-Mutant-Camels)
+<img src="https://upload.wikimedia.org/wikipedia/en/5/5b/Attack_of_the_Mutant_Camels_Cover_Art.jpg" height=300><img src="http://www.top80sgames.com/site/sites/default/files/images/screens/c64attackmutantcamels2.png" height=300>
+
+- A very complete disassembly of the game by C64-Mark
+
 [C64 CharSet]:https://www.c64-wiki.com/wiki/Character_set
 [CBM Prg Studio]:https://www.ajordison.co.uk/
 [6502 tutorial]:https://skilldrick.github.io/easy6502/
