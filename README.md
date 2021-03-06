@@ -137,6 +137,12 @@ as it feels comparatively slow compared to other Minger games.
 - Links to [a version you can try out in your browser.](https://mwenge.github.io/sheepinspace)
 - First pass, separating code and game data.
 
+# [Revenge of the Mutant Camels](https://github.com/mwenge/revengeofthemutantcamels)
+<img src="https://upload.wikimedia.org/wikipedia/en/5/50/Revenge_of_the_Mutant_Camels_Coverart.png" height=300><img src="https://user-images.githubusercontent.com/58846/108626235-0e848d00-7447-11eb-869a-ca974b865506.gif" height=300>
+
+- Links to [a version you can try out in your browser.](https://mwenge.github.io/sheepinspace)
+- First pass, separating code and game data.
+
 [C64 CharSet]:https://www.c64-wiki.com/wiki/Character_set
 [CBM Prg Studio]:https://www.ajordison.co.uk/
 [6502 tutorial]:https://skilldrick.github.io/easy6502/
