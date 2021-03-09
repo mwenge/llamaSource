@@ -1,12 +1,26 @@
-# Gridrunner
-### The Little Black Book
+# Gridrunner: The Little Black Book
+<img src="https://www.mobygames.com/images/covers/l/34991-gridrunner-commodore-64-front-cover.jpg" height=300><img src="https://user-images.githubusercontent.com/58846/103443482-9fb16180-4c57-11eb-9403-4968bd16287f.gif" height=300>
 
 ## Introduction
+Gridrunner was written at a feverish pace. In the autumn of 1982, Jeff Minter was twenty years
+old. With just a couple of very rudimentary games from the Commodore Pet and Vic 20
+under his belt he designed and programmed Gridrunner on a Vic 20 machine in under two weeks.
+This was short work but led to a decades-long series of games developed by Minter based
+on the original concept. 
 
-## 6502 Assembly: The Basics
+This book is for the reader who is curious to understand how games of the 8-bit era
+worked under the hood, what was involved in programming them and getting them to work,
+and how the programming style of someone like Minter developed over time. Gridrunner,
+like all Llamasoft games, is most notable for its speed and addictive gameplay. How 
+did Minter manage this on the limited hardware of the 1980s where so many others
+fell short? 
 
-The Commodore 64 is a computer with 64 kilobytes of memory. Let's unpack the
-two most important terms in this statement: memory and kilobytes.
+## Getting Started
+
+The two machines Minter developed games for were the Vic 20 and the Commodore
+64.  The Vic 20 was a computer with 5 kilobytes of memory. The Commodore 64 had
+64 kilobytes. Let's unpack the two most important terms in this statement:
+memory and kilobytes.
 
 ### Memory
 There are lots of different ways of visualizing a computer's memory,
@@ -22,11 +36,9 @@ boxes it chooses in any order it pleases.  Another way of saying this is that
 it can access the memory randomly. This allows us to call the tape Random
 Access Memory, or RAM.
 
-||||||
-| --- | --- | --- | --- | --- | --- | --- | --- |
 
 ### Kilobytes 
-The other thing to note here is that each box in the tape can only store a
+The important thing to note about our imaginary tape is that each box in the tape can only store a
 single value, a byte.  A byte is one of the segments or boxes on our tape and a
 kilobyte is 1024 such bytes. So when we say the Commodore 64 has 64 kilobytes
 of memory we are also saying it has 65,536 (1024 * 64) bytes: 65,536 segments
@@ -44,20 +56,35 @@ store 4 bytes are 32-bit. Those can store 8 bytes are 64 bit.
 ```
 
 ## Hexadecimal Notation
-Hexadecimal notation is the time-honored answer to this question. Since a byte
-consist of 8 bits, each of which can be 0 or 1, that means a byte can be one of
-256 values, or in other words a number between 0 and 255. When we store a byte
-in one of the segments on the tape we are in fact storing a number between 0
-and 255 there.  Hexadecimal is a very convenient way of representing numbers
-between 0 and 255 because it allows us to write the number as a two-character
-value where the first character represents the left half of the byte (i.e. the
-first 4 bits) and the second character represents the right half of the byte
-(i.e. the last 4 bits).
+What is the best way of representing bytes when writing them down and thinking
+about them?  Hexadecimal notation is the time-honored answer to this question.
+Since a byte consist of 8 bits, each of which can be 0 or 1, that means a byte
+can be one of 256 values, or in other words a number between 0 and 255. When we
+store a byte in one of the segments on the tape we are in fact storing a number
+between 0 and 255 (giving 256 possible values including the zero).  Hexadecimal
+is a very convenient way of representing numbers between 0 and 255 because it
+allows us to write the number as a two-character value where the first
+character represents the left half of the byte (i.e. the first 4 bits) and the
+second character represents the right half of the byte (i.e. the last 4 bits).
 
 Since a string of 4 bits can give us between 0 and 15 possible values, that
 means the numbers from 0 to 9 aren't enough to represent each of the 16 values
 in a single character. To deal with this we also use A to F. So if the number
 is 9 we use a 9, but if it's 10 we use an A. If it's 15 we use an F and so on.
+
+Decimal|Hex
+| --- | --- |
+0|0
+1|1
+..|..
+8|8
+9|9
+10|A
+11|B
+..|..
+14|E
+15|F
+
 Now since there are sixteen possible combinations of 4 zeros and ones, we need
 a convention for deciding which combination represents which number.
 
@@ -117,12 +144,12 @@ Now that we have a notation for defining the values (i.e. the numbers) that we
 store in each of the boxes in our memory tape, we need to decide if we should
 use the same notation for naming each of the boxes in the tape. The simplest
 way of naming the boxes is to give each a number as its address and to start at
-0 and end at 65,536.  This is indeed what we
-do. And now that we have hexadecimal notation we might as well use that instead
-of decimal numbers.  We write the range 0 to 65,356 in hexadecimal as `$0000`
-to `$FFFF`. The pleasing symmetry of this hexadecimal representation is not an
-accident. The 64 kilobytes of memory in the Commodore 64 is the limit of what
-can be addressed by a two byte value between `$0000` and `$FFFF` inclusive.
+0 and end at 65,536.  This is indeed what we do. And now that we have
+hexadecimal notation we might as well use that instead of decimal numbers.  We
+write the range 0 to 65,356 in hexadecimal as `$0000` to `$FFFF`. The pleasing
+symmetry of this hexadecimal representation is not an accident. The 64
+kilobytes of memory in the Commodore 64 is the limit of what can be addressed
+by a two byte value between `$0000` and `$FFFF` inclusive.
 
 
 ### How a Game is Loaded
@@ -165,11 +192,11 @@ following series of bytes to position `$0801` onwards in its memory:
 
 
 ```
-Address:         `$0802` `$0804`
+Address:         $0802 $0804
                  |     |
 Bytes:        0B 08 0A 00 9E 32 30 36 31 00 00 00 A0 00 A9 09 85 FD A9 80 ................
               |     |     |
-Address:      `$0801` `$0803` `$0805`
+Address:      $0801 $0803 $0805
 ```
 
 Once it has completed copying the data into memory. The next step is to start
@@ -190,29 +217,32 @@ comment):
 p0800   .BYTE $0B,$08,$0A,$00,$9E,$32,$30,$36,$31,$00,$00,$00
 ```
 
-So you can see the first 4 bytes are skipped, and the first instruction encountered is $9E, which stands
-for the `SYS` command. This command tells the CPU to start executing the machine language program at
-at the address specified in the bytes that follow. In this case the bytes that follow are `$32 $30
-$36 $31`, which is the PETSCII representation of the number 2061: $32 represents the number 2, $30 represents
-the number 0, and so on. 2061 in hexadecimal is `$080D`, so the CPU jumps to address `$080D` and starts executing
-whatever is there.
+So you can see the first 4 bytes are skipped, and the first instruction
+encountered is $9E, which stands for the `SYS` command. This command tells the
+CPU to start executing the machine language program at at the address specified
+in the bytes that follow. In this case the bytes that follow are `$32 $30 $36
+$31`, which is the PETSCII representation of the number 2061: $32 represents
+the number 2, $30 represents the number 0, and so on. 2061 in hexadecimal is
+`$080D`, so the CPU jumps to address `$080D` and starts executing whatever is
+there.
 
-Now we are at the point where have to understand one final thing about the contents of the `gridrunner.prg` file
-before we can start looking at it in more detail.
+Now we are at the point where have to understand one final thing about the
+contents of the `gridrunner.prg` file before we can start looking at it in more
+detail.
 
-What do the rest of the bytes (from `$080D` onwards) in the file mean and how do they result in a game
-starting up?
+What do the rest of the bytes (from `$080D` onwards) in the file mean and how
+do they result in a game starting up?
 
 
 ```
-Address:         `$080E` `$0810`
-                 |     |
+Address:         $080E $0810
+                 /     /
 Bytes:        A0 00 A9 09 85 FD A9 80 ................
-              |     |     |
-Address:      `$080D` `$080F` `$0811`
+              \     \     \
+Address:      $080D $080F $0811
 ```
 
-The answer is that this raw string of bytes is  'machine code' and it is simply
+The answer is that this raw string of bytes is 'machine code' and it is simply
 the machine-readable translation of a slightly more verbose language used by
 people to write programs in the first place. Each byte in this string
 represents an instruction or a value in the 'assembly language' used by Minter
@@ -279,7 +309,7 @@ b80AA  ; Do More Stuff
         LDA #$30
 ```
 
-You can see probably see immediately there's more to digest here. In order to
+You can probably see immediately there's more to digest here. In order to
 read the value stored at address `$0035` (which we've nickname `selectedLevel` in
 our code) we first have to load it into a temporary storage location belonging
 to the CPU called the Accumulator (`A` register for short). This is what `LDA
@@ -300,6 +330,7 @@ this segment of code is from the title screen of the game, where the user can
 select the level to start on. If you attempt to select a level above 32 it
 cycles back to level 1: you can only choose a level between 1 and 32.
 
+![gridrunner-level](https://user-images.githubusercontent.com/58846/110531048-013bf380-8113-11eb-9f3a-3f3288446f58.gif)
 
 ### Loops
 ### Functions and Early Returns
