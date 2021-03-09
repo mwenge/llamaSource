@@ -95,12 +95,12 @@ Bit 7 Bit 6 Bit 5 Bit 4 Bit 3 Bit 2  Bit 1  Bit 0
 
 So now we can give some full byte values:
 
-Hex Left 4 bits Right 4 bits  Decimal
-$00 0000  0000  0
-$01 0000  0001  1
-$08 0000  1000  8
-$88 1000  1000  136
-$FF 1111  1111  255
+Hex|Left 4 bits |Right 4 bits  |Decimal
+$00 |0000  |0000  |0
+$01 |0000  |0001  |1
+$08 |0000  |1000  |8
+$88 |1000  |1000  |136
+$FF |1111  |1111  |255
 
 Unfortunately there really isn't any good trick for converting a hexadecimal
 value such as $32 into its decimal equivalent in your head, other than to use
@@ -166,10 +166,12 @@ Bytes:        0B 08 0A 00 9E 32 30 36 31 00 00 00 A0 00 A9 09 85 FD A9 80 ......
 Address:      $0801 $0803 $0805
 ```
 
-Once it has completed copying the data into memory. The next step is to start executing it. It starts
-executing the data from the position to which it was copied: in this case `$0801`. So this leads
-to the question, how does it interpret the data there? Here is how this string of bytes would
-be represented in the source code for a C64 program (every line starting with a `;` is a comment):
+Once it has completed copying the data into memory. The next step is to start
+executing it. It starts executing the data from the position to which it was
+copied: in this case `$0801`. So this leads to the question, how does it
+interpret the data there? Here is how this string of bytes would be represented
+in the source code for a C64 program (every line starting with a `;` is a
+comment):
 
 
 ```asm
@@ -187,19 +189,112 @@ for the `SYS` command. This command tells the CPU to start executing the machine
 at the address specified in the bytes that follow. In this case the bytes that follow are `$32 $30
 $36 $31`, which is the PETSCII representation of the number 2061: $32 represents the number 2, $30 represents
 the number 0, and so on. 2061 in hexadecimal is $080D, so the CPU jumps to address $080D and starts executing
-what's there.
+whatever is there.
 
-```asm
-;---------------------------------------------------------------------------------
-; PrepareGame   
-;---------------------------------------------------------------------------------
-PrepareGame   
-        SEI 
-        ; Jumps to routine InitializeData
-        JMP (initializeDataJumpAddress)
+Now we are at the point where have to understand one final thing about the contents of the `gridrunner.prg` file
+before we can start looking at it in more detail.
+
+What do the rest of the bytes (from `$080D` onwards) in the file mean and how do they result in a game
+starting up?
+
+
+```
+Address:         $080E $0810
+                 |     |
+Bytes:        A0 00 A9 09 85 FD A9 80 ................
+              |     |     |
+Address:      $080D $080F $0811
 ```
 
+The answer is that this raw string of bytes is  'machine code' and it is simply
+the machine-readable translation of a slightly more verbose language used by
+people to write programs in the first place. Each byte in this string
+represents an instruction or a value in the 'assembly language' used by Minter
+to write Gridrunner. There were many flavours of assembly language even in 1982
+and this one was specific to the 6502 microprocessor used by the C64. Below we
+list the first six bytes of the program on the left with their assembly
+language translation on the right. You can see for example that the byte `$A0`
+translates to the mysterious word `LDY` and the byte '$A9' in the line below it
+translates to the equally mysterious word `LDA`.
+
+```asm
+$080D: A0 00               LDY #$00
+$080F: A9 09               LDA #$09
+$0811: 85 FD               STA $FD
+```
+The task of converting a program written in these mysterious words to the raw
+string of machine-code bytes is performed by program called an assembler. The
+equivalent task for modern languages such as C, C++, and Python is performed by
+a program called a compiler. As you can see from even the bried example above,
+writing a program in assembly language is as close as it is possible to get to
+writing out a series of bytes without actually doing so. The task of an
+assembler is almost as simple as mapping a dictionary of names (such as `STA`)
+to byte values (such as `$85`) and outputting the result. This is a far cry
+from modern, verbose programming languages where a lot more translation is
+required to turn the program into something that is still not a million miles
+away from the kind of machine code instructions used by the C64.
+
+Before we start looking at the code of Gridrunner and how it was written more
+closely it will be useful for you to understand a few of the basic patterns
+involved in writing programs in assembly language. This will hopefully make the
+code examples more accessible to you, but if you're impatient you should feel
+free to skip ahead and return here in the hope of explanation if some of the
+language usage gets confusing.
+
 ### Reading and Comparing Values
+Writing programs in assembly language forced Minter and other programmers to
+specify everything in exact detail. This can make even the simplest operations
+appear cumbersome at first. The most basic operation I can think of to start
+with is reading a value from memory and then comparing it some other value. In
+a modern language such as C or Javascript this would look something like:
+
+```c
+  if (selectedLevel != 32) {
+    // selectedLevel not equal to $20 (32 in decimal)
+    print(selectedLevel);
+  }
+  // Do More Stuff
+```
+In Gridrunner Minter achieves the equivalent effect using the following assembly code:
+```asm
+selectedLevel = $0035
+;-------------------------------------------------------------------------
+; IncrementSelectedLevel
+;-------------------------------------------------------------------------
+IncrementSelectedLevel
+        LDA selectedLevel ; Load the value in selectedLevel to the A register
+        CMP #$20          ; Compare it to the value $20
+        BNE b80AA         ; If it's not equal to $20 go to b80AA
+        ; selectedLevel == $20 (32 in decimal)
+        LDA #$01
+        STA selectedLevel
+        
+b80AA  ; Do More Stuff
+        LDA #$30
+```
+
+You can see probably see immediately there's more to digest here. In order to
+read the value stored at address $0035 (which we've nickname `selectedLevel` in
+our code) we first have to load it into a temporary storage location belonging
+to the CPU called the Accumulator (`A` register for short). This is what `LDA
+selectedLevel` does: it loads the value at address $0035 in the `A` register.
+Once it has done that we can now compare it to a value. `CMP` compares whatever
+value we retrieved from $0035 with the value $20 and stores the result in a
+place we don't have to worry about for now. `BNE` says that if the comparison
+is false, i.e.  the values are not equal, execution should jump to the address
+nickname `b80AA`, which happens to be $80AA, and which we can see is in the
+second last line of our listing above. This means that it will skip the two
+lines appearing after `BNE b80AA` and not execute them. On the other hand, if
+the comparison is true it will continue on and execute those two lines. What
+those two lines do is store the value $01 in address $0035 (`selectedLevel`).
+Or in other words, reset the value of the currently selected level to '1'.
+
+If you are familiar with Gridrunner you may now have begun to recognize that
+this segment of code is from the title screen of the game, where the user can
+select the level to start on. If you attempt to select a level above 32 it
+cycles back to level 1: you can only choose a level between 1 and 32.
+
+
 ### Loops
 ### Functions and Early Returns
 ### Pointers and Pointer Tables
