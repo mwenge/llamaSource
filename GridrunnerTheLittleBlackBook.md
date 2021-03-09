@@ -96,6 +96,7 @@ Bit 7 Bit 6 Bit 5 Bit 4 Bit 3 Bit 2  Bit 1  Bit 0
 So now we can give some full byte values:
 
 Hex|Left 4 bits |Right 4 bits  |Decimal
+| --- | --- | --- | --- |
 $00 |0000  |0000  |0
 $01 |0000  |0001  |1
 $08 |0000  |1000  |8
