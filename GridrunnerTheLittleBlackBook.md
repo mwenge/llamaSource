@@ -22,6 +22,8 @@ boxes it chooses in any order it pleases.  Another way of saying this is that
 it can access the memory randomly. This allows us to call the tape Random
 Access Memory, or RAM.
 
+||||||
+| --- | --- | --- | --- | --- | --- | --- | --- |
 
 ### Kilobytes 
 The other thing to note here is that each box in the tape can only store a
@@ -62,22 +64,24 @@ a convention for deciding which combination represents which number.
 The way this is done by assigning a value to each of the 4 bits from left to
 right and adding them up as follows:
 
-8 4 2 1
-0 1 0 1 = 5 = 5
-0 0 0 1 = 1 = 1
-1 0 1 0 = 10  = A
-1 1 1 1 = 15  = F
+8 |4 |2 |1 | Decimal | Hex
+| --- | --- | --- | --- | --- | --- |
+0 |1 |0 |1 |4 + 1= 5 |= 5
+0 |0 |0 |1 |1 = 1 |= 1
+1 |0 |1 |0 |8 + 2 = 10  |= A
+1 |1 |1 |1 |8 + 4 + 2 + 1= 15  |= F
 
 Next, by splitting the byte into a pair of 4 bits we can construct each
 character in the hexadecimal representation of the byte as in the following
 examples:
 
-Hex Left 4 bits Right 4 bits  Decimal
-$00 0000  0000
-$01 0000  0001
-$08 0000  1000
-$88 1000  1000
-$FF 1111  1111
+Hex| Left 4 bits |Right 4 bits
+| --- | --- | --- |
+$00 |0000  |0000
+$01 |0000  |0001
+$08 |0000  |1000
+$88 |1000  |1000
+$FF |1111  |1111
 
 ```
 Putting a $ sign in front of a hexadecimal value is a common
@@ -90,8 +94,9 @@ I haven't given the decimal value of the examples above, because we have one
 final step to do first: which is decide what value we assign each bit when
 there are 8 of them in a row, rather than just 4. The answer is as follows:
 
-Bit 7 Bit 6 Bit 5 Bit 4 Bit 3 Bit 2  Bit 1  Bit 0
-128 64  32  16  8 4 2 1
+Bit 7 |Bit 6 |Bit 5 |Bit 4 |Bit 3 |Bit 2  |Bit 1  |Bit 0
+| --- | --- | --- | --- | --- | --- | --- | --- |
+128 |64  |32  |16  |8 |4 |2 |1
 
 So now we can give some full byte values:
 
@@ -114,10 +119,10 @@ use the same notation for naming each of the boxes in the tape. The simplest
 way of naming the boxes is to give each a number as its address and to start at
 0 and end at 65,536.  This is indeed what we
 do. And now that we have hexadecimal notation we might as well use that instead
-of decimal numbers.  We write the range 0 to 65,356 in hexadecimal as $0000
-to $FFFF. The pleasing symmetry of this hexadecimal representation is not an
+of decimal numbers.  We write the range 0 to 65,356 in hexadecimal as `$0000`
+to `$FFFF`. The pleasing symmetry of this hexadecimal representation is not an
 accident. The 64 kilobytes of memory in the Commodore 64 is the limit of what
-can be addressed by a two byte value between $0000 and $FFFF inclusive.
+can be addressed by a two byte value between `$0000` and `$FFFF` inclusive.
 
 
 ### How a Game is Loaded
@@ -139,9 +144,9 @@ released his Llamasoft C64 and Vic 20 games into the public domain:
 01 08 0B 08 0A 00 9E 32 30 36 31 00 00 00 A0 00 A9 09 85 FD A9 80 ................
 ```
 
-The first two bytes are $0108. So if these two represent the address the rest
+The first two bytes are `$0108`. So if these two represent the address the rest
 should be copied to, then the C64 must copy everything from `0B 08 0A` onwards to
-address $0108 onwards right?
+address `$0108` onwards right?
 
 Wrong! :) When reading addresses from memory, the designers of the CPU the C64
 uses had a decision to make: do you read `0108` as `$0108`, which common sense
@@ -160,11 +165,11 @@ following series of bytes to position `$0801` onwards in its memory:
 
 
 ```
-Address:         $0802 $0804
+Address:         `$0802` `$0804`
                  |     |
 Bytes:        0B 08 0A 00 9E 32 30 36 31 00 00 00 A0 00 A9 09 85 FD A9 80 ................
               |     |     |
-Address:      $0801 $0803 $0805
+Address:      `$0801` `$0803` `$0805`
 ```
 
 Once it has completed copying the data into memory. The next step is to start
@@ -189,7 +194,7 @@ So you can see the first 4 bytes are skipped, and the first instruction encounte
 for the `SYS` command. This command tells the CPU to start executing the machine language program at
 at the address specified in the bytes that follow. In this case the bytes that follow are `$32 $30
 $36 $31`, which is the PETSCII representation of the number 2061: $32 represents the number 2, $30 represents
-the number 0, and so on. 2061 in hexadecimal is $080D, so the CPU jumps to address $080D and starts executing
+the number 0, and so on. 2061 in hexadecimal is `$080D`, so the CPU jumps to address `$080D` and starts executing
 whatever is there.
 
 Now we are at the point where have to understand one final thing about the contents of the `gridrunner.prg` file
@@ -200,11 +205,11 @@ starting up?
 
 
 ```
-Address:         $080E $0810
+Address:         `$080E` `$0810`
                  |     |
 Bytes:        A0 00 A9 09 85 FD A9 80 ................
               |     |     |
-Address:      $080D $080F $0811
+Address:      `$080D` `$080F` `$0811`
 ```
 
 The answer is that this raw string of bytes is  'machine code' and it is simply
@@ -275,19 +280,19 @@ b80AA  ; Do More Stuff
 ```
 
 You can see probably see immediately there's more to digest here. In order to
-read the value stored at address $0035 (which we've nickname `selectedLevel` in
+read the value stored at address `$0035` (which we've nickname `selectedLevel` in
 our code) we first have to load it into a temporary storage location belonging
 to the CPU called the Accumulator (`A` register for short). This is what `LDA
-selectedLevel` does: it loads the value at address $0035 in the `A` register.
+selectedLevel` does: it loads the value at address `$0035` in the `A` register.
 Once it has done that we can now compare it to a value. `CMP` compares whatever
-value we retrieved from $0035 with the value $20 and stores the result in a
+value we retrieved from `$0035` with the value $20 and stores the result in a
 place we don't have to worry about for now. `BNE` says that if the comparison
 is false, i.e.  the values are not equal, execution should jump to the address
-nickname `b80AA`, which happens to be $80AA, and which we can see is in the
+nickname `b80AA`, which happens to be `$80AA`, and which we can see is in the
 second last line of our listing above. This means that it will skip the two
 lines appearing after `BNE b80AA` and not execute them. On the other hand, if
 the comparison is true it will continue on and execute those two lines. What
-those two lines do is store the value $01 in address $0035 (`selectedLevel`).
+those two lines do is store the value $01 in address `$0035` (`selectedLevel`).
 Or in other words, reset the value of the currently selected level to '1'.
 
 If you are familiar with Gridrunner you may now have begun to recognize that
