@@ -131,12 +131,14 @@ a convention for deciding which combination represents which number.
 The way this is done by assigning a value to each of the 4 bits from left to
 right and adding them up as follows:
 
+<center>
 8 |4 |2 |1 | Decimal | Hex
 | --- | --- | --- | --- | --- | --- |
 0 |1 |0 |1 |4 + 1= 5 |= 5
 0 |0 |0 |1 |1 = 1 |= 1
 1 |0 |1 |0 |8 + 2 = 10  |= A
 1 |1 |1 |1 |8 + 4 + 2 + 1= 15  |= F
+</center>
 
 Next, by splitting the byte into a pair of 4 bits we can construct each
 character in the hexadecimal representation of the byte as in the following
@@ -613,7 +615,7 @@ first line of the bitmap is given as `$18`, in 1s and 0s this is `00011000` givi
 first row of pixels for the character. We do the same for the remaining 7 bytes and
 the 8 bytes together give us our 8x8 bitmap of the ship:
 
-<img src="https://user-images.githubusercontent.com/58846/110808216-af62ad00-827b-11eb-95a3-a0cf7266f824.png" width=400>
+<img src="https://user-images.githubusercontent.com/58846/110808216-af62ad00-827b-11eb-95a3-a0cf7266f824.png" width=300>
 
 Once we repeat this process for all the characters we want to create we will have a 
 file such as [charset.asm] with the game's full character set defined. The next task
@@ -630,8 +632,92 @@ LDA $18
 STA $D018
 ```
 
-For some reason, Minter does something much more convoluted in Gridrunner. 
+For some reason, Minter does something much more convoluted in Gridrunner: 
 
+```asm
+vicRegisterLoPtr = $02
+vicRegisterHiPtr = $03
+;---------------------------------------------------------------------------------
+; InitializeGame   
+;---------------------------------------------------------------------------------
+InitializeGame   
+        LDA #$D0
+        STA vicRegisterHiPtr
+        LDA #$00
+        STA vicRegisterLoPtr
+        LDY #$18
+        TYA 
+        STA (vicRegisterLoPtr),Y
+```
+
+This is the exact equivalent of `LDA $18, STA $D018` but instead uses a technique
+called 'address pointers'. This involves storing a memory address in memory and 
+using it as a pointer for writing values to that memory address.
+
+Let's step through the code to see how that works. First let's visualize the state
+of memory before the code is run. We'll imagine that the memory is all zeroes:
+
+
+```
+Address:         $0003      
+                 /      
+Bytes:        00 00   ........00 ..... 00 00 00
+              \               \        \
+Address:      $0002           $D000    $D018
+```
+
+First we write `$D0` to address `$0003` (vicRegisterHiPtr) and `$00` to address
+`$0002` (vicRegisterLoPtr):
+
+```
+Address:         $0003      
+                 /      
+Bytes:        00 D0   ........00 ..... 00 00 00
+              \               \        \
+Address:      $0002           $D000    $D018
+```
+
+Next we load `$18` to the `Y` register then copy it to the `A` register:
+
+```
+        LDY #$18
+        TYA 
+```
+Finally we write the contents of `A` (`$18`) to the address stored at
+`vicRegisterLoPtr` *plus* the number of bytes stored in `Y`.
+
+```
+        STA (vicRegisterLoPtr),Y
+```
+
+Let's unpack this because it's confusing. The address stored at `$0002`
+(`vicRegisterLoPtr`) is actually `$D000`:
+
+```
+Address:         $0003      
+                 /      
+Bytes:        00 D0   
+              \      
+Address:      $0002 
+```
+
+You may say: it's actually $00D0 though! But remember the C64 is
+`little-endian` so we have to reverse the order of the bytes when looking at
+two bytes in a row like this. 
+
+So when we say `STA (vicRegisterLoPtr)` we are in fact saying: store the contents of
+`A` in the address stored at address `$0002`, which in this case is the address
+`$D000`. When we say `STA (vicRegisterLoPtr), Y` we are saying store the
+contents of `A` (`$18`) in `$D000` + `$18`, i.e. at `$D018`. so this leaves us
+with `$18` stored at `$D018`:
+
+```
+Address:         $0003      
+                 /      
+Bytes:        00 D0   ........00 ..... 18 00 00
+              \               \        \
+Address:      $0002           $D000    $D018
+```
 
 ### Writing Gridrunner on the Vic 20
 ### Creating The Levels
