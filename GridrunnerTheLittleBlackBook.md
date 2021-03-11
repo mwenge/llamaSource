@@ -131,14 +131,14 @@ a convention for deciding which combination represents which number.
 The way this is done by assigning a value to each of the 4 bits from left to
 right and adding them up as follows:
 
-<center>
+<div align="center">
 8 |4 |2 |1 | Decimal | Hex
 | --- | --- | --- | --- | --- | --- |
 0 |1 |0 |1 |4 + 1= 5 |= 5
 0 |0 |0 |1 |1 = 1 |= 1
 1 |0 |1 |0 |8 + 2 = 10  |= A
 1 |1 |1 |1 |8 + 4 + 2 + 1= 15  |= F
-</center>
+</div>
 
 Next, by splitting the byte into a pair of 4 bits we can construct each
 character in the hexadecimal representation of the byte as in the following
