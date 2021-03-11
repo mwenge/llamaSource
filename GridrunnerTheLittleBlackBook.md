@@ -1,6 +1,46 @@
 # Gridrunner: The Little Black Book
 <img src="https://www.mobygames.com/images/covers/l/34991-gridrunner-commodore-64-front-cover.jpg" height=300><img src="https://user-images.githubusercontent.com/58846/103443482-9fb16180-4c57-11eb-9403-4968bd16287f.gif" height=300>
 
+
+<!-- vim-markdown-toc GFM -->
+
+* [Introduction](#introduction)
+* [Getting Started](#getting-started)
+  * [Memory](#memory)
+  * [Kilobytes](#kilobytes)
+* [Hexadecimal Notation](#hexadecimal-notation)
+  * [Addressing Memory](#addressing-memory)
+  * [How a Game is Loaded](#how-a-game-is-loaded)
+  * [Reading and Comparing Values](#reading-and-comparing-values)
+  * [Loops](#loops)
+  * [Sub-Routines and Early Returns](#sub-routines-and-early-returns)
+  * [Pointers and Pointer Tables](#pointers-and-pointer-tables)
+* [Gridrunner on the Vic 20](#gridrunner-on-the-vic-20)
+  * [Character Sets in the Vic 20 and C64](#character-sets-in-the-vic-20-and-c64)
+  * [Writing Gridrunner on the Vic 20](#writing-gridrunner-on-the-vic-20)
+  * [Creating The Levels](#creating-the-levels)
+  * [Managing Speed](#managing-speed)
+  * [Some Early Anti-Patterns](#some-early-anti-patterns)
+  * [Sound Effects](#sound-effects)
+* [Porting Gridrunner to the C64](#porting-gridrunner-to-the-c64)
+  * [Improving Code Style](#improving-code-style)
+  * [Changes in Gameplay](#changes-in-gameplay)
+  * [New Effects](#new-effects)
+* [Matrix: Gridrunner 2](#matrix-gridrunner-2)
+  * [Improving Code Style](#improving-code-style-1)
+  * [Changes in Gameplay](#changes-in-gameplay-1)
+* [Porting Matrix to the C64](#porting-matrix-to-the-c64)
+  * [Improving Code Style](#improving-code-style-2)
+  * [Changes in Gameplay](#changes-in-gameplay-2)
+* [Voidrunner](#voidrunner)
+  * [Coding for the C16](#coding-for-the-c16)
+  * [Colors, effects](#colors-effects)
+* [Gridrunner: Afterlife](#gridrunner-afterlife)
+  * [Gridrunner Revolution](#gridrunner-revolution)
+  * [Gridrunner++](#gridrunner)
+* [Appendix: Reconstructing the Source Code](#appendix-reconstructing-the-source-code)
+
+<!-- vim-markdown-toc -->
 ## Introduction
 Gridrunner was written at a feverish pace. In the autumn of 1982, Jeff Minter was twenty years
 old. With just a couple of very rudimentary games from the Commodore Pet and Vic 20
@@ -325,6 +365,17 @@ the comparison is true it will continue on and execute those two lines. What
 those two lines do is store the value $01 in address `$0035` (`selectedLevel`).
 Or in other words, reset the value of the currently selected level to '1'.
 
+```
+We could probably come up with a better nickname for the loop label than `b80AA`,
+something like `LevelLessThan32` for example. Unfortunately we would need to make
+these label names unique throughout the entire program and doing that quickly
+results in ridiculously verbose names such as 'IncrementSelectedLevel_Loop2'.
+So for the sake of brevity, I've kept the more compact label names for local
+loops such as this one. Where the code jumps or loops across a lot of code, for
+example over more than a screen height of code, explicit names are useful and
+I've adopted them in such cases.
+```
+
 If you are familiar with Gridrunner you may now have begun to recognize that
 this segment of code is from the title screen of the game, where the user can
 select the level to start on. If you attempt to select a level above 32 it
@@ -333,11 +384,255 @@ cycles back to level 1: you can only choose a level between 1 and 32.
 ![gridrunner-level](https://user-images.githubusercontent.com/58846/110531048-013bf380-8113-11eb-9f3a-3f3288446f58.gif)
 
 ### Loops
-### Functions and Early Returns
+
+Since assembly supports, even encourages, jumping around our imaginary tape
+to execute code, writing a tight loop is relatively concise. In this example
+from the `IncrementSelectedLevel` routine we looked at above we run through
+a loop 48 times ($30 in hex is 48) calling the sub-routine WasteSomeCycles
+each time. Every time we cycle through the loop we decrement the value in `X`
+by 1, and as long as it is still not zero we loop again (`BNE b80C8`). Eventually
+after 48 loops `X` is down to zero and we stop looping.
+
+```asm
+        LDX #$30
+b80CB   JSR WasteSomeCycles ; Call function (or sub-routine) WasteSomeCycles
+        DEX 
+        BNE b80CB
+```
+
+We've already seen the use of `A` as temporary location for storing values, `X' used
+in `LDX $30` is just another temporary location we can use. So in the same way we
+load a value to `A` with `LDA`, we can load a value to `X` with `LDX`. There's just
+one more temporary location available which we haven't covered yet.. you guessed it
+`Y`, for which we use `LDY`.
+
+A slightly more complex example of a loop is also available in the `IncrementSelectedLevel`
+routine. This one increments the level displayed to the player when they push up on the 
+joystick. Because it has to work out when we've reached 9 and so needs to display 10 and 
+restart the right-most digit at 0 it has to do a bit more work. This exposes a few more 
+features in assembly, and in the C64 and VIC20, internals that will be useful to us later.
+
+```asm
+b80AA   LDA #$30
+        STA SCREEN_RAM + $0157
+        STA SCREEN_RAM + $0158
+
+        LDX selectedLevel
+b80B4   INC SCREEN_RAM + $0158
+        LDA SCREEN_RAM + $0158
+        CMP #$3A
+        BNE b80C6
+        LDA #$30
+        STA SCREEN_RAM + $0158
+        INC SCREEN_RAM + $0157
+b80C6   DEX 
+        BNE b80B4
+```
+
+At the very start of the above snippet we write `$30` to two locations in RAM,
+`SCREEN_RAM + $0157` and `SCREEN_RAM + $0158i`. These are the characters that
+are displayed on row 8, columns 39 and 40,  that live at address $0557 and $0558
+in RAM. (SCREEN_RAM is a nickname for address `$0400` where the screen
+characters start, adding $157 brings us row 8 and column 39). Since `$30` is 
+the ASCII value for '0' (zero) this means it is writing `00` next to the 'ENTER
+LEVEL' text on the screen.
+
+![gridrunner-level](https://user-images.githubusercontent.com/58846/110531048-013bf380-8113-11eb-9f3a-3f3288446f58.gif)
+
+Now that we've initialized that field with two zeroes, we want to replace it
+with the value of `selectedLevel`. Let's say the value of selected level is
+`$0C`, i.e. 12.  Minter uses the loop that follows to achieve this.
+
+In the loop we see the same pattern as before, `X` is used to track the number
+of iterations through the loop. If the user has selected level 12, we're going
+to iterate through the loop 12 times.  Every time we iterate we're going to
+increment the right-most digit in the displayed level. That's what `INC
+SCREEN_RAM + $0158` achieves.
+
+After incrementing that number we check if it is now equal $3A, if it is then
+it means we are already showing `$39`, i.e. the ascii value for '9'. So we need
+to reset it to zero and increment the left-hand digit (`SCREEN_RAM + $0157`)
+instead:
+
+```asm
+        CMP #$3A
+        BNE b80C6 ; If it's not equal to $3A, then jump to b80C6 and continue looping.
+        ; Reset the right-hand digit to zero
+        LDA #$30
+        STA SCREEN_RAM + $0158
+        ; Increment the left-hand digit instead
+        INC SCREEN_RAM + $0157
+b80C6   DEX 
+```
+
+This loop continues until decrementing the value in `X` reaches zero.
+
+### Sub-Routines and Early Returns
+Assembly-language does allow the programmer to write what today we would call
+functions but in the 1980s Minter would have referred to as 'routines' or
+'sub-routines'. These are independent, re-usable chunks of assembly-language
+code that can be called from other places in the program by using the `JSR`
+instruction. The routine we've just been examining in detail,
+`IncrementSelectedLevel`, is one such example of a sub-routine. A routine
+'returns' back to its caller by using the instruction `RTS`. Typically, this is
+when the routine is complete and will always be found at least once in a
+sub-routine, at the very end.
+
+A good example of the usefulness of sub-routines can be seen in the main game
+loop of Gridrunner. This is a tight sequence of complex tasks that must be
+repeated ad-infinitum while the game is running. Each routine encapsulates a
+set of related and sometimes complex tasks while keeping the order in which
+they are performed intelligible. 
+
+```asm
+MainLoop
+        JSR DrawBullet
+        JSR UpdateZappersPosition
+        JSR DrawLaser
+        JSR UpdatePods
+        JSR DrawUpdatedPods
+        JSR PlayBackgroundSounds
+        JSR DrawDroids
+        JSR ResetAnimationFrameRate
+        JSR CheckLevelComplete
+        JMP ReenterMainGameLoop
+```
+
+I want to look at two final features of sub-routines before we move on from
+them. In `CheckLevelComplete`, the second last routine called in the main
+game loop, we see two common techniques: one that is clear and useful and
+another that might at first be confusing.
+
+The clear and useful feature is what's called an 'early return'. The routine
+checks the value of  `droidsLeftToKill` and if it is not equal to zero, i.e. there
+are no droids left, it returns early, i.e. executed an `RTS` instruction and
+returns to the main game loop. 
+
+On the other hand if `droidsLeftToKill` *is* equal to zero (`BEQ b8ACD`) execution
+branches to the code at `b8ACD`. There it checks the number of droid squads
+left in the level (`noOfDroidSquadsCurrentLevel`) and if that is not equal to
+zero (`BNE b8ACC`) it jumps to `b8ACC` and again returns early to the main
+game loop.
+
+It is only if there are no droids left to kill and no droid sqauds left at all,
+so the player has in fact completed the level,
+that execution reaches `JMP DisplayNewLevelInterstitial`. This is the routine
+that flashes up the 'ENTER LEVEL' screen and begins a new level.
+
+The merits of this 'early return' pattern are hopefully obvious, but you might
+wonder what has happened to the `RTS` instruction that should be at the end
+of the `CheckLevelComplete` routine? What we have instead is a `JMP` instruction
+that jumps execution to `DisplayNewLevelInterstitial`.
+
+This is the slightly confusing feature of assembly language. It doesn't actually
+mind if the programmer ever returns from a routine. All the CPU does is keep a
+list of all locations where routineis were called by a `JSR` instruction and every 
+time it reaches an `RTS` instruction it jumps back to the most recent location in
+its list.
+
+
+
+```asm
+;-------------------------------------------------------------------------
+; CheckLevelComplete
+;-------------------------------------------------------------------------
+CheckLevelComplete
+        LDA droidsLeftToKill
+        BEQ b8ACD
+b8ACC   RTS 
+
+b8ACD   LDA noOfDroidSquadsCurrentLevel
+        BNE b8ACC
+        JMP DisplayNewLevelInterstitial
+        ;Returns
+```
+
+What we often find in Minter's programs that the function we `JMP` to at the end
+of the routine itself calls `RTS` when it's done. If that happened here execution
+would go back to the place where we called `JSR CheckLevelComplete` in the main 
+game loop. And while that isn't obvious without a bit of explanation, it's common
+enough to become obvious and expected behaviour after a while.
+
+What happens in Gridrunner in this instance is something less desirable. If we
+follow the `JMP DisplayNewLevelInterstitial` we find that it doesn't return but
+instead jumps to another routine, which jumps to another routine, and eventually
+we jump all the way to `MainLoop` again without ever having actually returned from
+`CheckLevelComplete`. 
+
+So that means as we play the game and complete levels the list of locations for
+unreturned sub-routines will keep growing and eventually the list will be 32 items
+long when we complete the game.
+
+```
+This list of locations is known as the 'stack'. The 'stack' is an area in memory
+that you can think of as behaving like a stack of plates. You can add a value to the 
+top of the stack, but every time you take a value from the stack you also have to take it
+from the top. So it behaves in a last-in, first-out way. This is a useful pattern
+when you want to keep a list, don't particularly want to keep track of what's in the
+list, and all you need to worry about is being able to take the most recently
+added item (the location a routine was called) every time you are asked for an item
+(when `RTS` is executed).
+```
+
 ### Pointers and Pointer Tables
-### Character Sets in the Vic 20 and C64
 
 ## Gridrunner on the Vic 20
+
+### Character Sets in the Vic 20 and C64
+Gridrunner is entirely character based, it doesn't use any other type of graphic
+capability. What this means in practice is that everything on the screen is drawn
+with hand-crafted characters on a screen that on the C64 is 40 characters wide and 22 characters
+tall. As Gridrunner demonstrates, it's possible to do quite a lot even with these
+limited means. But it also means that unless you get quite sophisticated, and Gridrunner
+doesn't, the size of the game elements such as the ship, bullets and enemies are going
+to be just one character in size.
+
+Each character is 8 pixels wide and 8 pixels high. And the way you define a character
+is by providing 8 bytes that together define a bitmap for the character. In this case the bitmap is
+simply an 8x8 table of 1s and 0s that defines the shape of the character: a 1 means
+a pixel, a 0 means a blank space.
+
+A good example is the iconic Gridrunner ship:
+
+```asm
+.BYTE $18,$3C,$66,$18,$7E,$FF,$E7,$C3 ; CHARACTER 7           
+                                        ; $07                 
+                                        ; 00011000      **    
+                                        ; 00111100     ****   
+                                        ; 01100110    **  **  
+                                        ; 00011000      **    
+                                        ; 01111110    ******  
+                                        ; 11111111   ******** 
+                                        ; 11100111   ***  *** 
+                                        ; 11000011   **    ** 
+```
+You have to look quite closely at the table of 1s and 0s to make out the picture it is 
+representing. The equivalent representation using blanks and asterisks to its right
+does a better job of making the defined shape obvious. In the gridrunner ship the
+first line of the bitmap is given as `$18`, in 1s and 0s this is `00011000` giving the
+first row of pixels for the character. We do the same for the remaining 7 bytes and
+the 8 bytes together give us our 8x8 bitmap of the ship:
+
+![image](https://user-images.githubusercontent.com/58846/110796087-7cb2b780-826f-11eb-8259-3ceb5148e0c2.png)
+
+Once we repeat this process for all the characters we want to create we will have a 
+file such as [charset.asm] with the game's full character set defined. The next task
+is to somehow let the computer know where these character definitions are so that
+it can use them. By default, the C64 expects to find the characgter set definition
+at location `$1000` in memory - but in the case of Gridrunner Minter stores it at
+$2000, out of the way of the game code. The way to let the C64 know of this is to
+update the value stored at address `$D018` - the magic value to write there if
+we want to store our character set at `$2000` is `$18`. So a simple statement such
+as this would suffice:
+
+```asm
+LDA $18
+STA $D018
+```
+
+For some reason, Minter does something much more convoluted in Gridrunner. 
+
+
 ### Writing Gridrunner on the Vic 20
 ### Creating The Levels
 ### Managing Speed
@@ -365,5 +660,5 @@ cycles back to level 1: you can only choose a level between 1 and 32.
 ### Gridrunner Revolution
 ### Gridrunner++
 
-# Appendix: Reconstructing the Source Code
+## Appendix: Reconstructing the Source Code
 
