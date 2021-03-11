@@ -613,7 +613,7 @@ first line of the bitmap is given as `$18`, in 1s and 0s this is `00011000` givi
 first row of pixels for the character. We do the same for the remaining 7 bytes and
 the 8 bytes together give us our 8x8 bitmap of the ship:
 
-![image](https://user-images.githubusercontent.com/58846/110796087-7cb2b780-826f-11eb-8259-3ceb5148e0c2.png)
+<img src="https://user-images.githubusercontent.com/58846/110808216-af62ad00-827b-11eb-95a3-a0cf7266f824.png" width=400>
 
 Once we repeat this process for all the characters we want to create we will have a 
 file such as [charset.asm] with the game's full character set defined. The next task
