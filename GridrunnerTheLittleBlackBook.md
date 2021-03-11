@@ -112,18 +112,10 @@ means the numbers from 0 to 9 aren't enough to represent each of the 16 values
 in a single character. To deal with this we also use A to F. So if the number
 is 9 we use a 9, but if it's 10 we use an A. If it's 15 we use an F and so on.
 
-Decimal|Hex
-| --- | --- |
-0|0
-1|1
-..|..
-8|8
-9|9
-10|A
-11|B
-..|..
-14|E
-15|F
+
+0|1|2|3|4|5|6|7|8|9|A|B|C|D|E|F|
+---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|
 
 Now since there are sixteen possible combinations of 4 zeros and ones, we need
 a convention for deciding which combination represents which number.
@@ -131,14 +123,12 @@ a convention for deciding which combination represents which number.
 The way this is done by assigning a value to each of the 4 bits from left to
 right and adding them up as follows:
 
-<div align="center">
 8 |4 |2 |1 | Decimal | Hex
 | --- | --- | --- | --- | --- | --- |
 0 |1 |0 |1 |4 + 1= 5 |= 5
 0 |0 |0 |1 |1 = 1 |= 1
 1 |0 |1 |0 |8 + 2 = 10  |= A
 1 |1 |1 |1 |8 + 4 + 2 + 1= 15  |= F
-</div>
 
 Next, by splitting the byte into a pair of 4 bits we can construct each
 character in the hexadecimal representation of the byte as in the following
