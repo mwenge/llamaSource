@@ -1,5 +1,5 @@
 # Gridrunner: The Little Black Book
-<img src="https://www.mobygames.com/images/covers/l/34991-gridrunner-commodore-64-front-cover.jpg" height=300><img src="https://user-images.githubusercontent.com/58846/103443482-9fb16180-4c57-11eb-9403-4968bd16287f.gif" height=300>
+<img src="https://www.mobygames.com/images/covers/l/34991-gridrunner-commodore-64-front-cover.jpg" height=300>
 
 
 <!-- vim-markdown-toc GFM -->
@@ -8,17 +8,19 @@
 * [Getting Started](#getting-started)
   * [Memory](#memory)
   * [Kilobytes](#kilobytes)
-* [Hexadecimal Notation](#hexadecimal-notation)
+  * [Hexadecimal Notation](#hexadecimal-notation)
   * [Addressing Memory](#addressing-memory)
   * [How a Game is Loaded](#how-a-game-is-loaded)
   * [Reading and Comparing Values](#reading-and-comparing-values)
   * [Loops](#loops)
   * [Sub-Routines and Early Returns](#sub-routines-and-early-returns)
-  * [Pointers and Pointer Tables](#pointers-and-pointer-tables)
 * [Gridrunner on the Vic 20](#gridrunner-on-the-vic-20)
   * [Character Sets in the Vic 20 and C64](#character-sets-in-the-vic-20-and-c64)
-  * [Writing Gridrunner on the Vic 20](#writing-gridrunner-on-the-vic-20)
+  * [Address Pointers](#address-pointers)
+  * [The Title Screen](#the-title-screen)
+  * [Drawing the Grid](#drawing-the-grid)
   * [Creating The Levels](#creating-the-levels)
+  * [Managing the Droids](#managing-the-droids)
   * [Managing Speed](#managing-speed)
   * [Some Early Anti-Patterns](#some-early-anti-patterns)
   * [Sound Effects](#sound-effects)
@@ -42,6 +44,7 @@
 
 <!-- vim-markdown-toc -->
 ## Introduction
+<img src="https://user-images.githubusercontent.com/58846/103443482-9fb16180-4c57-11eb-9403-4968bd16287f.gif" height=300>
 Gridrunner was written at a feverish pace. In the autumn of 1982, Jeff Minter was twenty years
 old. With just a couple of very rudimentary games from the Commodore Pet and Vic 20
 under his belt he designed and programmed Gridrunner on a Vic 20 machine in under two weeks.
@@ -87,6 +90,10 @@ itself consist of 8 bits. A bit is a zero or a one. This becomes important when
 we want to write a byte to a segment on the tape as we now have to decide the
 best way of representing these byte values when writing computer code.
 
+![image](https://user-images.githubusercontent.com/58846/110908422-b387dc80-8306-11eb-88b3-a93a78883bfc.png)
+
+
+
 ```
 The Commodore 64 is often referred to as an '8-bit' computer. This is because
 each of its boxes or segments in memory can only contain 1 byte (or 8 bits) as
@@ -95,7 +102,7 @@ segments in their 'memory tape' are called 16-bit computers.  Those that can
 store 4 bytes are 32-bit. Those can store 8 bytes are 64 bit.
 ```
 
-## Hexadecimal Notation
+### Hexadecimal Notation
 What is the best way of representing bytes when writing them down and thinking
 about them?  Hexadecimal notation is the time-honored answer to this question.
 Since a byte consist of 8 bits, each of which can be 0 or 1, that means a byte
@@ -566,23 +573,22 @@ added item (the location a routine was called) every time you are asked for an i
 (when `RTS` is executed).
 ```
 
-### Pointers and Pointer Tables
-
 ## Gridrunner on the Vic 20
 
 ### Character Sets in the Vic 20 and C64
-Gridrunner is entirely character based, it doesn't use any other type of graphic
-capability. What this means in practice is that everything on the screen is drawn
-with hand-crafted characters on a screen that on the C64 is 40 characters wide and 22 characters
-tall. As Gridrunner demonstrates, it's possible to do quite a lot even with these
-limited means. But it also means that unless you get quite sophisticated, and Gridrunner
-doesn't, the size of the game elements such as the ship, bullets and enemies are going
-to be just one character in size.
+Gridrunner is entirely character based, it doesn't use any other type of
+graphic capability. What this means in practice is that everything on the
+screen is drawn with hand-crafted characters on a screen that on the C64 is 40
+characters wide and 22 characters tall. As Gridrunner demonstrates, it's
+possible to do quite a lot even with these limited means. But it also means
+that unless you get quite sophisticated, and Gridrunner doesn't, the size of
+the game elements such as the ship, bullets and enemies are going to be just
+one character in size.
 
-Each character is 8 pixels wide and 8 pixels high. And the way you define a character
-is by providing 8 bytes that together define a bitmap for the character. In this case the bitmap is
-simply an 8x8 table of 1s and 0s that defines the shape of the character: a 1 means
-a pixel, a 0 means a blank space.
+Each character is 8 pixels wide and 8 pixels high. And the way you define a
+character is by providing 8 bytes that together define a bitmap for the
+character. In this case the bitmap is simply an 8x8 table of 1s and 0s that
+defines the shape of the character: a 1 means a pixel, a 0 means a blank space.
 
 A good example is the iconic Gridrunner ship:
 
@@ -598,24 +604,27 @@ A good example is the iconic Gridrunner ship:
                                         ; 11100111   ***  *** 
                                         ; 11000011   **    ** 
 ```
-You have to look quite closely at the table of 1s and 0s to make out the picture it is 
-representing. The equivalent representation using blanks and asterisks to its right
-does a better job of making the defined shape obvious. In the gridrunner ship the
-first line of the bitmap is given as `$18`, in 1s and 0s this is `00011000` giving the
-first row of pixels for the character. We do the same for the remaining 7 bytes and
-the 8 bytes together give us our 8x8 bitmap of the ship:
+You have to look quite closely at the table of 1s and 0s to make out the
+picture it is representing. The equivalent representation using blanks and
+asterisks to its right does a better job of making the defined shape obvious.
+In the gridrunner ship the first line of the bitmap is given as `$18`, in 1s
+and 0s this is `00011000` giving the first row of pixels for the character. We
+do the same for the remaining 7 bytes and the 8 bytes together give us our 8x8
+  bitmap of the ship:
 
-<img src="https://user-images.githubusercontent.com/58846/110808216-af62ad00-827b-11eb-95a3-a0cf7266f824.png" width=300>
+<img
+src="https://user-images.githubusercontent.com/58846/110808216-af62ad00-827b-11eb-95a3-a0cf7266f824.png"
+width=300>
 
-Once we repeat this process for all the characters we want to create we will have a 
-file such as [charset.asm] with the game's full character set defined. The next task
-is to somehow let the computer know where these character definitions are so that
-it can use them. By default, the C64 expects to find the characgter set definition
-at location `$1000` in memory - but in the case of Gridrunner Minter stores it at
-$2000, out of the way of the game code. The way to let the C64 know of this is to
-update the value stored at address `$D018` - the magic value to write there if
-we want to store our character set at `$2000` is `$18`. So a simple statement such
-as this would suffice:
+Once we repeat this process for all the characters we want to create we will
+have a file such as [charset.asm] with the game's full character set defined.
+The next task is to somehow let the computer know where these character
+definitions are so that it can use them. By default, the C64 expects to find
+the characgter set definition at location `$1000` in memory - but in the case
+of Gridrunner Minter stores it at $2000, out of the way of the game code. The
+way to let the C64 know of this is to update the value stored at address
+`$D018` - the magic value to write there if we want to store our character set
+at `$2000` is `$18`. So a simple statement such as this would suffice:
 
 ```asm
 LDA $18
@@ -644,6 +653,7 @@ This is the exact equivalent of `LDA $18, STA $D018` but instead uses a techniqu
 called 'address pointers'. This involves storing a memory address in memory and 
 using it as a pointer for writing values to that memory address.
 
+### Address Pointers
 Let's step through the code to see how that works. First let's visualize the state
 of memory before the code is run. We'll imagine that the memory is all zeroes:
 
@@ -709,8 +719,264 @@ Bytes:        00 D0   ........00 ..... 18 00 00
 Address:      $0002           $D000    $D018
 ```
 
-### Writing Gridrunner on the Vic 20
+### The Title Screen
+![image](https://user-images.githubusercontent.com/58846/110953577-712ec180-833f-11eb-9d84-031d4ba11b12.png)
+
+The title screen for Gridrunner on the Vic 20 is extremely minimal. Minter
+recounts that this was a result of having so few bytes left over in the
+memory available to the game: there wasn't even enough room left over to fit hs full
+name. On an unexpanded Vic 20 there are only 3.5 KB
+available for a program to load and run, in other words from position `$1000`
+to `$1DFF`, which is a total 3583 bytes.  Gridrunner uses all of this and arrives at 3585 bytes in total, the
+two extra bytes are the load address at the start of the `prg` file.
+
+```asm
+;-------------------------------------------------------------------------
+; InitializeScreenAndBorder
+;-------------------------------------------------------------------------
+InitializeScreenAndBorder
+        LDA #$FF
+        STA VICCR5   ;$9005 - screen map & character map address
+        LDA #$08
+        STA VICCRF   ;$900F - screen colors: background, border & inverse
+        JMP DrawBannerTopOfScreen
+
+             .BYTE $C5,$CE
+txtCopyRight .BYTE $02,$A8,$83,$A9,$B1,$B9,$B8,$B2 ; (c) 1982
+             .BYTE $8A,$83,$8D,$BD,$39,$3B,$BC,$76 ; JCM
+             .BYTE $6A
+
+;-------------------------------------------------------------------------
+; DrawTitleScreen
+;-------------------------------------------------------------------------
+DrawTitleScreen
+        JSR InitializeScreenAndBorder
+b1BA7   LDA #$02
+        STA VIA1IER  ;$911E - interrupt enable register (IER)
+
+        ; Clear the screen
+        LDY #$00
+        LDA #$20
+b1BB0   STA SCREEN_RAM + $0016,Y
+        STA SCREEN_RAM + $0116,Y
+        DEY 
+        BNE b1BB0
+
+        LDY #$00
+b1BBB   LDA currentHighScore,Y
+        CMP SCREEN_RAM + $000F,Y
+        JMP CheckCurrentScoreAgainstHighScore
+
+;---------------------------------------------------------------------------------
+; CheckCurrentScoreAgainstHighScore   
+;---------------------------------------------------------------------------------
+CheckCurrentScoreAgainstHighScore   
+        BNE b10D6
+        INY 
+        JMP UpdateHiScore
+
+b10D6   BMI b10DB
+        JMP DrawHiScoreAndWaitForFire
+
+b10DB   JMP SaveHiScore
+
+;---------------------------------------------------------------------------------
+; DrawHiScoreAndWaitForFire   
+;---------------------------------------------------------------------------------
+DrawHiScoreAndWaitForFire   
+        LDY #$0A
+b1BD7   LDA highScoreText,Y
+        STA SCREEN_RAM + $0048,Y
+        LDA txtCopyRight,Y
+        STA SCREEN_RAM + $008A,Y
+        LDA #$01
+        STA COLOR_RAM + $0048,Y
+        STA COLOR_RAM + $008A,Y
+        DEY 
+        BNE b1BD7
+
+        ;Wait for the user to press fire.
+b1BEE   JSR GetJoystickInput
+        LDA joystickInput
+        AND #$80
+        BEQ b1BEE
+
+        ;Fire Pressed
+        JMP LaunchGame
+```
+### Drawing the Grid
+![vicdrawgrid](https://user-images.githubusercontent.com/58846/111065244-a4449280-84b0-11eb-9b13-fa9aa25d8c5b.gif)
+
+The grid for the Vic 20 is drawn with a simple nested loop, using a single grid character. The grid is 21 characters
+wide and 18 characters tall. The grid is drawn instantaneously along with the rest of the items on the screen.
+
+```asm
+        .BYTE $18,$18,$18,$FF,$FF,$18,$18,$18   ;.BYTE $18,$18,$18,$FF,$FF,$18,$18,$18
+                                                ; CHARACTER $00, GRID
+                                                ; 00011000      **   
+                                                ; 00011000      **   
+                                                ; 00011000      **   
+                                                ; 11111111   ********
+                                                ; 11111111   ********
+                                                ; 00011000      **   
+                                                ; 00011000      **   
+                                                ; 00011000      **   
+SCREEN_LINE_WIDTH = $16
+;-------------------------------------------------------------------------
+; DrawGrid
+;-------------------------------------------------------------------------
+DrawGrid
+        LDA #>SCREEN_RAM + $002C
+        STA screenRamHiPtr
+        LDA #<SCREEN_RAM + $002C
+        STA screenRamLoPtr
+
+        LDX #$12 ; 18 characters tall
+b1177   LDY #$15 ; 21 characters wide
+b1179   LDA #GRID
+        STA (screenRamLoPtr),Y
+
+        LDA screenRamHiPtr
+        PHA 
+        ; Move the Hi pointer to COLOR RAM
+        CLC 
+        ADC #OFFSET_TO_COLOR_RAM
+        STA screenRamHiPtr
+
+        ; Draw the color
+        LDA #RED
+        STA (screenRamLoPtr),Y
+
+        PLA 
+        STA screenRamHiPtr
+        DEY 
+        BNE b1179
+
+        LDA screenRamLoPtr
+        CLC 
+        ADC #SCREEN_LINE_WIDTH
+        STA screenRamLoPtr
+        LDA screenRamHiPtr
+        ADC #$00
+        STA screenRamHiPtr
+        DEX 
+        BNE b1177
+
+        RTS 
+```
+For the C64 port, we get something more elaborate.
+
+![c64drawgrid](https://user-images.githubusercontent.com/58846/111065656-a9a2dc80-84b2-11eb-9983-0dce7853f67d.gif)
+
+The grid is drawn in two stages. Once with a vertical line, and finally with the full grid. We also get sound
+effects to accompany drawing the grid. Notice how much more compact the `DrawGridLoop` loop is compared
+to the original in the Vic20. This is because the loop now uses a utility routine `WriteCurrentCharacterToCurrentXYPos`
+to draw the character to the screen rather than implementing those details in the body of the loop itself:
+
+```asm
+
+.BYTE $18,$18,$18,$18,$FF,$18,$18,$18   ;.BYTE $18,$18,$18,$18,$FF,$18,$18,$18
+                                        ; CHARACTER $00, GRID
+                                        ; 00011000      **   
+                                        ; 00011000      **   
+                                        ; 00011000      **   
+                                        ; 00011000      **   
+                                        ; 11111111   ********
+                                        ; 00011000      **   
+                                        ; 00011000      **   
+                                        ; 00011000      **   
+
+.BYTE $18,$18,$18,$18,$18,$18,$18,$18   ;.BYTE $18,$18,$18,$18,$18,$18,$18,$18
+                                        ; CHARACTER $3f, VERTICAL_LINE
+                                        ; 00011000      **   
+                                        ; 00011000      **   
+                                        ; 00011000      **   
+                                        ; 00011000      **   
+                                        ; 00011000      **   
+                                        ; 00011000      **   
+                                        ; 00011000      **   
+                                        ; 00011000      **   
+gridXPos = $08
+gridYPos = $09
+;-------------------------------------------------------------------------
+; DrawGrid
+;-------------------------------------------------------------------------
+DrawGrid
+        LDA #$02
+        STA gridXPos
+        LDA #ORANGE
+        STA colorForCurrentCharacter
+        LDA #VERTICAL_LINE
+        STA currentCharacter
+
+        ; Draw the horizontal lines of the grid
+DrawHorizontalLineLoop   
+        LDA #$00
+        STA $D412    ;Voice 3: Control Register
+        LDA #$00
+        STA $D412    ;Voice 3: Control Register
+
+        LDA #$02
+        STA gridYPos
+b81BC   LDA gridYPos
+        STA currentYPosition
+        LDA gridXPos
+        STA currentXPosition
+        JSR WriteCurrentCharacterToCurrentXYPos
+        JSR PlaySomeSound
+        INC gridYPos
+        LDA gridYPos
+        CMP #$16
+        BNE b81BC
+
+        LDX #$01
+b81D4   JSR JumpToPlayAnotherSound
+        DEY 
+        BNE b81DA
+b81DA   DEX 
+        BNE b81D4
+        INC gridXPos
+        LDA gridXPos
+        CMP #$27
+        BNE DrawHorizontalLineLoop
+
+        ; Draw the full grid
+        LDA #$02
+        STA gridXPos
+        LDA #GRID
+        STA currentCharacter
+
+DrawGridLoop
+        LDA #$01
+        STA gridYPos
+b81F1   LDA gridYPos
+        STA currentXPosition
+        LDA gridXPos
+        STA currentYPosition
+        JSR WriteCurrentCharacterToCurrentXYPos
+        JSR PlaySomeSound
+        INC gridYPos
+        LDA gridYPos
+        CMP #$27
+        BNE b81F1
+
+        LDX #$01
+b8209   JSR JumpToPlayAnotherSound
+        DEY 
+        BNE b820F
+b820F   DEX 
+        BNE b8209
+
+        INC gridXPos
+        LDA gridXPos
+        CMP #$16
+        BNE DrawGridLoop
+
+b821A   RTS 
+```
+
 ### Creating The Levels
+### Managing the Droids
 ### Managing Speed
 ### Some Early Anti-Patterns
 ### Sound Effects
