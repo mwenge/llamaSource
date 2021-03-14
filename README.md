@@ -55,7 +55,8 @@ The page also contains disassemblies and playable versions of the numerous demos
 
 [<img src="https://www.mobygames.com/images/covers/l/34991-gridrunner-commodore-64-front-cover.jpg" height=300>](https://github.com/mwenge/gridrunner)[<img src="https://user-images.githubusercontent.com/58846/103443482-9fb16180-4c57-11eb-9403-4968bd16287f.gif" height=300>](https://github.com/mwenge/gridrunner)
 
-- Contains a good overview of how to go about disassembling a C64 game.
+- Contains a good overview of [how to go about disassembling a C64 game](https://github.com/mwenge/gridrunner).
+- Check out [Gridrunner: The Little Black Book](https://github.com/mwenge/llamaSource/blob/main/GridrunnerTheLittleBlackBook.md), a work in progress discussion of the source code to the full Gridrunner series, including Gridrunner, Matrix, and Voidrunner.
 - Links to [a version you can try out in your browser.](https://mwenge.github.io/gridrunner.xyz)
 - A good first pass at documenting the source code.
 
