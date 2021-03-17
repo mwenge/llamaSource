@@ -974,7 +974,370 @@ b820F   DEX
 
 b821A   RTS 
 ```
+In the Matrix for the VIC 20 we get something more elaborate again:
 
+![matrix-levelentry](https://user-images.githubusercontent.com/58846/111451403-4e1e5c00-8709-11eb-849d-5eb01edc39c7.gif)
+
+Let's break down how this is achieved. The first element of the sequence is a cascade of coloured lines descending
+down the screen. This is implemented by the routine `DrawGridLineCascade`:
+
+```asm
+gridLineColorIndex = $06
+;-------------------------------------------------------------------------
+; DrawGridLineCascade
+;-------------------------------------------------------------------------
+DrawGridLineCascade
+        LDA #>SCREEN_RAM + $0042
+        STA screenLineHiPtr
+        LDA #<SCREEN_RAM + $0042
+        STA screenLineLoPtr
+
+DrawLinesLoop
+        LDA #$00
+        LDY #$14
+
+        ; Draw an empty character to the screen. The actual lines will be
+        ; animated by the caller of this routine.
+b2139   STA (screenLineLoPtr),Y
+        DEY 
+        BNE b2139
+
+        ; Move the ptr to Color RAM
+        LDA screenLineHiPtr
+        PHA 
+        CLC 
+        ADC #$84
+        STA screenLineHiPtr
+
+        ; Paint the line with the color for this point in the
+        ; sequence
+        LDX gridLineColorIndex
+        LDA gridLineIntroSequenceColors,X
+        LDY #$14
+b214D   STA (screenLineLoPtr),Y
+        DEY 
+        BNE b214D
+
+        ; Move to the next line
+        LDA screenLineLoPtr
+        ADC #$16
+        STA screenLineLoPtr
+        PLA 
+        ADC #$00
+        STA screenLineHiPtr
+
+        ; There are eight colors to choose from, so wrap around
+        ; if we've reached the 8th color.
+        INC gridLineColorIndex
+        LDA gridLineColorIndex
+        CMP #$08
+        BNE b2169
+        LDA #$01
+        STA gridLineColorIndex
+
+b2169   DEC linesToDraw
+        BNE DrawLinesLoop
+        RTS 
+```
+This routine draws a number of colored lines down the screen, where the number is determined by `linesToDraw`.
+This is what it looks like when called at each iteration from `BeginGameEntrySequence`. The number of lines
+it draws at each invocation is gradually increased, creating the cascade effect:
+
+![matrix-gridlines](https://user-images.githubusercontent.com/58846/111452529-86726a00-870a-11eb-9a11-4e21cc4be009.gif)
+
+The effect of the scrolling lines is actually achieved by the caller of `DrawGridLineCascade`. On closer inspection
+we see that `DrawGridLineCascade` itself just draws empty characters and updates the color value for each. The following
+section in `BeginGameEntrySequence` is the one that actually implements the animated line effect:
+
+```asm
+DrawGridLoop
+        LDA tempCounter2
+        STA gridLineColorIndex
+        LDA #$14
+        SEC 
+        SBC tempCounter
+        STA linesToDraw
+        INC VICCRE   ;$900E - sound volume
+        LDA VICCRE   ;$900E - sound volume
+        CMP #$10
+        BNE b21A2
+        DEC VICCRE   ;$900E - sound volume
+b21A2   JSR DrawGridLineCascade
+
+        ; This section animates the GRID characters we drew above. 
+        ; It achieves this by populating an $FF in each of the 8 bytes
+        ; of the grid character definition then reverting it to $00.
+        ; The net effect is of a horizontal line moving smoothly down
+        ; the screen along a single line width.
+        LDX #$00
+AnimateLineLoop
+        LDA #$FF
+        STA charsetLocation,X
+        TXA 
+        PHA 
+        LDA #$80
+        STA xCycles
+        LDA #$10
+        STA yCycles
+        JSR WasteXYCycles
+        PLA 
+        TAX 
+b21BB   LDA VICCR4   ;$9004 - raster beam location (bits 7-0)
+        CMP #$7F
+        BNE b21BB
+        LDA #$00
+        STA charsetLocation,X
+        INX 
+        CPX #$08
+        BNE AnimateLineLoop
+```
+As we may remember a character set is defined by 8 bytes, a value of $FF in any one of those bytes
+draws a horizontal line along the character, for example like so:
+
+```asm
+.BYTE $00,$00,$00,$00,$FF,$00,$00,$00   
+                                        ; 00000000           
+                                        ; 00000000           
+                                        ; 00000000           
+                                        ; 00000000           
+                                        ; 11111111   ********
+                                        ; 00000000           
+                                        ; 00000000           
+                                        ; 00000000           
+```
+
+What `AnimateLineLoop` does above is iterate through the 8bytes of the character set definition for
+character `$00`, set it to $FF (creating a line), wait a little while, then set it back to `$00`, making
+it blank again. This achieves the line moving down the screen effect.
+
+The same technique, manipulating character sets in place, achieve the materialization of the grid from the
+cascaded lines.
+
+```asm
+        ; Animate the materialization of the grid
+MaterializeGrid
+        LDX #$80
+b220B   STX VICCRB   ;$900B - frequency of sound osc.2 (alto)
+        LDY #$00
+b2210   DEY 
+        BNE b2210
+        INX 
+        BNE b220B
+
+        LDY #$08
+b2218   LDX linesToDraw
+        LDA charsetLocation + $02D8,X
+        STA charsetLocation - $0001,Y
+        INC linesToDraw
+        DEY 
+        BNE b2218
+
+        LDA VICCRE   ;$900E - sound volume
+        SBC #$05
+        STA VICCRE   ;$900E - sound volume
+        DEC gridLineColorIndex
+        BNE MaterializeGrid
+```
+
+A more complex version of this effect, involving bit-shifting, is used to animate the title
+text while the game is playing: 
+
+```asm
+;-------------------------------------------------------------------------
+; AnimateTitleText
+;-------------------------------------------------------------------------
+AnimateTitleText
+        LDA charsetLocation + $0109
+        ROL 
+        ADC #$00
+        STA charsetLocation + $0109
+        RTS 
+```
+![matrixtitleanimate](https://user-images.githubusercontent.com/58846/111461510-30ef8a80-8715-11eb-9b78-8d4cccec6d55.gif)
+
+When Minter converted the Vic 20 Matrix to C64 in a hurry he left at least one small bug behind in the process.
+When porting to C64 he forgot to update the 'STA' statement to refer to the new location of the character
+set:
+
+```asm
+;-------------------------------------------------------------------------
+; AnimateTitleText
+;-------------------------------------------------------------------------
+AnimateTitleText
+        LDA charSetLocation + $0109
+        ROL 
+        ADC #$00
+        ;FIXME: should this be charSetLocation + $0109 like in Vic20?
+        STA f1509
+        RTS 
+```
+
+Instead of storing the updated, bit-shifted byte to its original location of $2109, he instead stores it
+to the equivalent location of the byte in the Vic 20 version ($1509). The result is that the animation
+doesn't happen. When you play Matrix on the C64 what should be an animation effect instead looks like a glitch
+in rendering the title text:
+
+![matrixc64titleanimate](https://user-images.githubusercontent.com/58846/111461817-98a5d580-8715-11eb-9238-bf4390064c1c.gif)
+
+
+
+```asm
+
+;-------------------------------------------------------------------------
+; PerformRollingGridAnimation
+;-------------------------------------------------------------------------
+PerformRollingGridAnimation
+        LDA charsetLocation + $0007
+        STA screenLineLoPtr
+        LDX #$07
+b337D   LDA charsetLocation - $0001,X
+        STA charsetLocation,X
+        DEX 
+        BNE b337D
+
+        LDA screenLineLoPtr
+        STA charsetLocation
+        LDA a3F
+        AND #$80
+        BEQ b3394
+        JMP ScrollGrid
+
+b3394   RTS 
+
+;---------------------------------------------------------------------------------
+; ScrollGrid   
+;---------------------------------------------------------------------------------
+ScrollGrid   
+        LDX #$08
+b340C   CLC 
+        LDA charsetLocation - $0001,X
+        ROL 
+        ADC #$00
+        STA charsetLocation - $0001,X
+        DEX 
+        BNE b340C
+b3419   RTS 
+```
+
+```asm
+;---------------------------------------------------------------------------------
+; TitleScreenLoop   
+;---------------------------------------------------------------------------------
+TitleScreenLoop   
+        LDX #$00
+        LDA #>charsetLocation
+        STA tempCounter
+        LDA #<charsetLocation
+        STA a07
+b38B7   LDA VICCR4   ;$9004 - raster beam location (bits 7-0)
+        CMP #$7F
+        BNE b38B7
+
+        LDA txtScrollingAllMatrixPilots,X
+        BEQ TitleScreenLoop
+        AND #$3F
+        CMP #$20
+        BNE b38CC
+        JMP HandleSpaceInScrollingText
+
+b38CC   CMP #$2E
+        BNE b38D3
+        JMP HandleElllipsisInScrollingText
+
+b38D3   CMP #$2C
+        BNE b38DA
+        JMP j394E
+
+b38DA   CLC 
+        ASL 
+        ASL 
+        ASL 
+        TAY 
+        STX tempCounter2
+        LDX #$00
+b38E3   LDA charsetLocation + $0200,Y
+        STA scrollingTextStorage,X
+        INY 
+        INX 
+        CPX #$08
+        BNE b38E3
+        ; Fall through
+
+;---------------------------------------------------------------------------------
+; ScrollTextLoop   
+;---------------------------------------------------------------------------------
+ScrollTextLoop   
+        LDX tempCounter2
+        LDA #$08
+        STA tempCounter
+b38F5   LDY #$00
+b38F7   LDA #$18
+        STA a07
+        TYA 
+        TAX 
+        CLC 
+j38FE   ROL scrollingTextStorage,X
+        PHP 
+        TXA 
+        CLC 
+        ADC #$08
+        TAX 
+        DEC a07
+        BEQ b390F
+        PLP 
+        JMP j38FE
+
+b390F   PLP 
+        INY 
+        CPY #$08
+        BNE b38F7
+        LDX #$0A
+b3917   DEY 
+        BNE b3917
+        DEX 
+        BNE b3917
+b391D   LDA VICCR4   ;$9004 - raster beam location (bits 7-0)
+        CMP #$7F
+        BNE b391D
+        DEC tempCounter
+        BNE b38F5
+        LDX tempCounter2
+        INX 
+        JMP TitleScreenCheckJoystickKeyboardInput
+
+        .BYTE $00
+;---------------------------------------------------------------------------------
+; HandleSpaceInScrollingText   
+;---------------------------------------------------------------------------------
+HandleSpaceInScrollingText   
+        STX tempCounter2
+        LDA #$00
+        LDX #$08
+b3935   STA charsetLocation + $03FF,X
+        DEX 
+        BNE b3935
+        JMP ScrollTextLoop
+
+;---------------------------------------------------------------------------------
+; HandleElllipsisInScrollingText   
+;---------------------------------------------------------------------------------
+HandleElllipsisInScrollingText   
+        STX tempCounter2
+        LDX #$08
+b3942   LDA charsetLocation + $03B7,X
+        STA charsetLocation + $03FF,X
+        DEX 
+        BNE b3942
+        JMP ScrollTextLoop
+
+j394E   STX tempCounter2
+        LDX #$08
+b3952   LDA charsetLocation + $03C7,X
+        STA charsetLocation + $03FF,X
+        DEX 
+        BNE b3952
+        JMP ScrollTextLoop
+```
 ### Creating The Levels
 ### Managing the Droids
 ### Managing Speed
