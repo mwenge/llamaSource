@@ -157,6 +157,7 @@ as it feels comparatively slow compared to other Minger games.
 
 <br> 
 <br> 
+
 ## [Hover Bovver](https://github.com/mwenge/hoverbovver)
 <img src="https://upload.wikimedia.org/wikipedia/en/f/f2/Hover_Bovver_cover.png" height=300><img src="https://user-images.githubusercontent.com/58846/112737654-f1664100-8f53-11eb-87a8-7d099ca455be.png" height=300>
 
@@ -165,6 +166,7 @@ as it feels comparatively slow compared to other Minger games.
 
 <br> 
 <br> 
+
 ## [Mama Llama](https://github.com/mwenge/mamallama)
 <img src="https://user-images.githubusercontent.com/58846/112850587-0f41bc00-90a2-11eb-8136-6943c4080076.png" height=300><img src="https://llamasoftarchive.org/wp-content/uploads/2017/06/IMG_2446.jpg" height=300>
 - Links to [a version you can try out in your browser.](https://mwenge.github.io/mamallama)
@@ -172,8 +174,9 @@ as it feels comparatively slow compared to other Minger games.
 
 <br> 
 <br> 
+
 ## [Ancipital](https://github.com/mwenge/ancipital)
-<img src="https://user-images.githubusercontent.com/58846/112850587-0f41bc00-90a2-11eb-8136-6943c4080076.png" height=300><img src="https://llamasoftarchive.org/wp-content/uploads/2017/06/IMG_2446.jpg" height=300>
+<img src="http://www.the-commodore-zone.com/articlelive/content_images/cover_ancipital_minter.jpg" height=300><img src="http://www.simplygames.net/wp-content/uploads/2017/08/Anciptal-screenshot-1.png" height=300>
 - Links to [a version you can try out in your browser.](https://mwenge.github.io/ancipital)
 - First pass, separating code and game data.
 
