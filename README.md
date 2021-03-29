@@ -155,6 +155,28 @@ as it feels comparatively slow compared to other Minger games.
 
 - A very complete disassembly of the game by C64-Mark
 
+<br> 
+<br> 
+## [Hover Bovver](https://github.com/mwenge/hoverbovver)
+<img src="https://upload.wikimedia.org/wikipedia/en/f/f2/Hover_Bovver_cover.png" height=300><img src="https://user-images.githubusercontent.com/58846/112737654-f1664100-8f53-11eb-87a8-7d099ca455be.png" height=300>
+
+- Links to [a version you can try out in your browser.](https://mwenge.github.io/hoverbovver)
+- First pass, separating code and game data.
+
+<br> 
+<br> 
+## [Mama Llama](https://github.com/mwenge/mamallama)
+<img src="https://user-images.githubusercontent.com/58846/112850587-0f41bc00-90a2-11eb-8136-6943c4080076.png" height=300><img src="https://llamasoftarchive.org/wp-content/uploads/2017/06/IMG_2446.jpg" height=300>
+- Links to [a version you can try out in your browser.](https://mwenge.github.io/mamallama)
+- First pass, separating code and game data.
+
+<br> 
+<br> 
+## [Ancipital](https://github.com/mwenge/ancipital)
+<img src="https://user-images.githubusercontent.com/58846/112850587-0f41bc00-90a2-11eb-8136-6943c4080076.png" height=300><img src="https://llamasoftarchive.org/wp-content/uploads/2017/06/IMG_2446.jpg" height=300>
+- Links to [a version you can try out in your browser.](https://mwenge.github.io/ancipital)
+- First pass, separating code and game data.
+
 [C64 CharSet]:https://www.c64-wiki.com/wiki/Character_set
 [CBM Prg Studio]:https://www.ajordison.co.uk/
 [6502 tutorial]:https://skilldrick.github.io/easy6502/

@@ -9,14 +9,15 @@
   * [Memory](#memory)
   * [Kilobytes](#kilobytes)
   * [Hexadecimal Notation](#hexadecimal-notation)
+* [Beginning to Read and Understand the Code](#beginning-to-read-and-understand-the-code)
   * [Addressing Memory](#addressing-memory)
   * [How a Game is Loaded](#how-a-game-is-loaded)
   * [Reading and Comparing Values](#reading-and-comparing-values)
   * [Loops](#loops)
   * [Sub-Routines and Early Returns](#sub-routines-and-early-returns)
-* [Gridrunner on the Vic 20](#gridrunner-on-the-vic-20)
   * [Character Sets in the Vic 20 and C64](#character-sets-in-the-vic-20-and-c64)
   * [Address Pointers](#address-pointers)
+* [The Elements of Gridrunner](#the-elements-of-gridrunner)
   * [The Title Screen](#the-title-screen)
   * [Drawing the Grid](#drawing-the-grid)
   * [Creating The Levels](#creating-the-levels)
@@ -178,6 +179,7 @@ Unfortunately there really isn't any good trick for converting a hexadecimal
 value such as $32 into its decimal equivalent in your head, other than to use
 old-fashioned multiplication: multiply 3 by 16, then add 2, giving 50.
 
+## Beginning to Read and Understand the Code
 ### Addressing Memory
 Now that we have a notation for defining the values (i.e. the numbers) that we
 store in each of the boxes in our memory tape, we need to decide if we should
@@ -573,7 +575,6 @@ added item (the location a routine was called) every time you are asked for an i
 (when `RTS` is executed).
 ```
 
-## Gridrunner on the Vic 20
 
 ### Character Sets in the Vic 20 and C64
 Gridrunner is entirely character based, it doesn't use any other type of
@@ -719,6 +720,7 @@ Bytes:        00 D0   ........00 ..... 18 00 00
 Address:      $0002           $D000    $D018
 ```
 
+## The Elements of Gridrunner
 ### The Title Screen
 ![image](https://user-images.githubusercontent.com/58846/110953577-712ec180-833f-11eb-9d84-031d4ba11b12.png)
 
@@ -1366,4 +1368,27 @@ b3952   LDA charsetLocation + $03C7,X
 ### Gridrunner++
 
 ## Appendix: Reconstructing the Source Code
+At its simplest, reconstructing source code for a C64 game is a matter of taking a `prg` file and
+mapping each byte back to its corresponding 6502 assembly instruction. The VIC 20 gamefile [`gridrunner.prg`](https://github.com/mwenge/gridrunner/blob/master/orig/gridrunnervic20.prg) is an example of where it is possible to do 
+just this.
 
+In this brief clip we load `gridrunner.prg` into a Windows programe called [Regenerator] and can relatively
+quickly turn it into 6502 assembly source file, ready to be compiled by [64tass]. When we compile it we should
+(and do) end up with byte-for-byte identical copy of [`gridrunner.prg`]:
+
+
+
+[`gridrunner.prg`]:https://github.com/mwenge/gridrunner/blob/master/orig/gridrunnervic20.prg
+[Python script]:https://github.com/mwenge/gridrunner/blob/master/ConvertCharSetToBinary.py
+[C64 CharSet]:https://www.c64-wiki.com/wiki/Character_set
+[CBM Prg Studio]:https://www.ajordison.co.uk/
+[6502 tutorial]:https://skilldrick.github.io/easy6502/
+[6502 opcodes]:http://www.6502.org/tutorials/6502opcodes.html
+[C64 memory map]:https://www.c64-wiki.com/wiki/Memory_Map
+[C64 wiki]:https://www.c64-wiki.com/wiki/Memory_Map#Cartridge_ROM
+[Infiltrator]:https://csdb.dk/release/?id=100129
+[Regenerator]:https://www.c64brain.com/tools/commodore-64-regenerator-1-7/
+[64tass]: http://tass64.sourceforge.net/
+[vice]: http://vice-emu.sourceforge.net/
+[https://gridrunner.xyz]: https://mwenge.github.io/gridrunner.xyz
+[commented source code]:https://github.com/mwenge/gridrunner/blob/master/src/
