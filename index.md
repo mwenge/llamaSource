@@ -1,3 +1,24 @@
+<!-- vim-markdown-toc GFM -->
+
+  * [Introduction](#introduction)
+* [The Games](#the-games)
+  * [Iridis Alpha](#iridis-alpha)
+  * [Gridrunner](#gridrunner)
+  * [Matrix](#matrix)
+  * [Hellgate](#hellgate)
+  * [Voidrunner](#voidrunner)
+  * [Metagalactic Llamas: Battle at the Edge of Time](#metagalactic-llamas-battle-at-the-edge-of-time)
+  * [Psychedelia](#psychedelia)
+  * [Batalyx](#batalyx)
+  * [Sheep in Space](#sheep-in-space)
+  * [Revenge of the Mutant Camels](#revenge-of-the-mutant-camels)
+  * [Attack of the Mutant Camels](#attack-of-the-mutant-camels)
+  * [Hover Bovver](#hover-bovver)
+  * [Mama Llama](#mama-llama)
+  * [Ancipital](#ancipital)
+
+<!-- vim-markdown-toc -->
+## Introduction
 One by one I'm disassembling some games and programs published for the
 Commodore 64 by Llamasoft (i.e. Jeff Minter) in the 1980s.
 
@@ -25,6 +46,8 @@ the comments in the code and figuring out the operation of the routines while
 assigning labels and variable names that are meaningful. For now, though, my
 focus is on completing a first pass on as many games as possible. 
 
+
+# The Games
 ## [Iridis Alpha](https://github.com/mwenge/iridisalpha)
 [<img src="https://www.c64-wiki.com/images/a/a2/Iridisalphacover.jpg" height=300><img src="https://user-images.githubusercontent.com/58846/103442991-ae494a00-4c52-11eb-9432-0f6ed61d3a5a.gif" height=300>](https://github.com/mwenge/iridisalpha)
 
@@ -52,12 +75,11 @@ The page also contains disassemblies and playable versions of the numerous demos
 
 [<img src="https://www.mobygames.com/images/covers/l/34991-gridrunner-commodore-64-front-cover.jpg" height=300>](https://github.com/mwenge/gridrunner)[<img src="https://user-images.githubusercontent.com/58846/103443482-9fb16180-4c57-11eb-9403-4968bd16287f.gif" height=300>](https://github.com/mwenge/gridrunner)
 
-- Contains a good overview of how to go about disassembling a C64 game.
+- Contains a good overview of [how to go about disassembling a C64 game](https://github.com/mwenge/gridrunner).
+- Check out [Gridrunner: The Little Black Book](https://github.com/mwenge/llamaSource/blob/main/GridrunnerTheLittleBlackBook.md), a work in progress discussion of the source code to the full Gridrunner series, including Gridrunner, Matrix, and Voidrunner.
 - Links to [a version you can try out in your browser.](https://mwenge.github.io/gridrunner.xyz)
 - A good first pass at documenting the source code.
 
-<br> 
-<br> 
 <br> 
 <br> 
 
@@ -69,6 +91,8 @@ The successor to Gridrunner. Faster, more enoyable. An underrated game.
 - Links to [a version you can try out in your browser.](https://mwenge.github.io/matrix.xyz)
 - A good first pass at documenting the source code.
 
+<br> 
+<br> 
 
 ## [Hellgate](https://github.com/mwenge/hellgate)
 <img src="https://www.mobygames.com/images/covers/l/510954-hellgate-commodore-64-front-cover.jpg" height=300><img src="https://user-images.githubusercontent.com/58846/104652406-f9327b00-56b0-11eb-948b-101ce169ef71.gif" height=300>
@@ -134,10 +158,46 @@ as it feels comparatively slow compared to other Minger games.
 - Links to [a version you can try out in your browser.](https://mwenge.github.io/sheepinspace)
 - First pass, separating code and game data.
 
+<br> 
+<br> 
+
 ## [Revenge of the Mutant Camels](https://github.com/mwenge/revengeofthemutantcamels)
 <img src="https://upload.wikimedia.org/wikipedia/en/5/50/Revenge_of_the_Mutant_Camels_Coverart.png" height=300><img src="https://user-images.githubusercontent.com/58846/108626235-0e848d00-7447-11eb-869a-ca974b865506.gif" height=300>
 
-- Links to [a version you can try out in your browser.](https://mwenge.github.io/sheepinspace)
+- Links to [a version you can try out in your browser.](https://mwenge.github.io/revengeofthemutantcamels)
+- First pass, separating code and game data.
+
+<br> 
+<br> 
+
+## [Attack of the Mutant Camels](https://github.com/C64-Mark/Attack-of-the-Mutant-Camels)
+<img src="https://upload.wikimedia.org/wikipedia/en/5/5b/Attack_of_the_Mutant_Camels_Cover_Art.jpg" height=300><img src="http://www.top80sgames.com/site/sites/default/files/images/screens/c64attackmutantcamels2.png" height=300>
+
+- A very complete disassembly of the game by C64-Mark
+
+<br> 
+<br> 
+
+## [Hover Bovver](https://github.com/mwenge/hoverbovver)
+<img src="https://upload.wikimedia.org/wikipedia/en/f/f2/Hover_Bovver_cover.png" height=300><img src="https://user-images.githubusercontent.com/58846/112737654-f1664100-8f53-11eb-87a8-7d099ca455be.png" height=300>
+
+- Links to [a version you can try out in your browser.](https://mwenge.github.io/hoverbovver)
+- First pass, separating code and game data.
+
+<br> 
+<br> 
+
+## [Mama Llama](https://github.com/mwenge/mamallama)
+<img src="https://user-images.githubusercontent.com/58846/112850587-0f41bc00-90a2-11eb-8136-6943c4080076.png" height=300><img src="https://llamasoftarchive.org/wp-content/uploads/2017/06/IMG_2446.jpg" height=300>
+- Links to [a version you can try out in your browser.](https://mwenge.github.io/mamallama)
+- First pass, separating code and game data.
+
+<br> 
+<br> 
+
+## [Ancipital](https://github.com/mwenge/ancipital)
+<img src="http://www.the-commodore-zone.com/articlelive/content_images/cover_ancipital_minter.jpg" height=300><img src="http://www.simplygames.net/wp-content/uploads/2017/08/Anciptal-screenshot-1.png" height=300>
+- Links to [a version you can try out in your browser.](https://mwenge.github.io/ancipital)
 - First pass, separating code and game data.
 
 [C64 CharSet]:https://www.c64-wiki.com/wiki/Character_set
