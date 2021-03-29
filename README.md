@@ -1,6 +1,27 @@
 # The Llamasoft Source Code Project
 ## A project for disassembling and commenting the source code for C64 Llamasoft software
 
+<!-- vim-markdown-toc GFM -->
+
+  * [Introduction](#introduction)
+* [The Games](#the-games)
+  * [Iridis Alpha](#iridis-alpha)
+  * [Gridrunner](#gridrunner)
+  * [Matrix](#matrix)
+  * [Hellgate](#hellgate)
+  * [Voidrunner](#voidrunner)
+  * [Metagalactic Llamas: Battle at the Edge of Time](#metagalactic-llamas-battle-at-the-edge-of-time)
+  * [Psychedelia](#psychedelia)
+  * [Batalyx](#batalyx)
+  * [Sheep in Space](#sheep-in-space)
+  * [Revenge of the Mutant Camels](#revenge-of-the-mutant-camels)
+  * [Attack of the Mutant Camels](#attack-of-the-mutant-camels)
+  * [Hover Bovver](#hover-bovver)
+  * [Mama Llama](#mama-llama)
+  * [Ancipital](#ancipital)
+
+<!-- vim-markdown-toc -->
+## Introduction
 One by one I'm disassembling some games and programs published for the
 Commodore 64 by Llamasoft (i.e. Jeff Minter) in the 1980s.
 
@@ -28,6 +49,8 @@ the comments in the code and figuring out the operation of the routines while
 assigning labels and variable names that are meaningful. For now, though, my
 focus is on completing a first pass on as many games as possible. 
 
+
+# The Games
 ## [Iridis Alpha](https://github.com/mwenge/iridisalpha)
 [<img src="https://www.c64-wiki.com/images/a/a2/Iridisalphacover.jpg" height=300><img src="https://user-images.githubusercontent.com/58846/103442991-ae494a00-4c52-11eb-9432-0f6ed61d3a5a.gif" height=300>](https://github.com/mwenge/iridisalpha)
 
@@ -144,7 +167,7 @@ as it feels comparatively slow compared to other Minger games.
 ## [Revenge of the Mutant Camels](https://github.com/mwenge/revengeofthemutantcamels)
 <img src="https://upload.wikimedia.org/wikipedia/en/5/50/Revenge_of_the_Mutant_Camels_Coverart.png" height=300><img src="https://user-images.githubusercontent.com/58846/108626235-0e848d00-7447-11eb-869a-ca974b865506.gif" height=300>
 
-- Links to [a version you can try out in your browser.](https://mwenge.github.io/sheepinspace)
+- Links to [a version you can try out in your browser.](https://mwenge.github.io/revengeofthemutantcamels)
 - First pass, separating code and game data.
 
 <br> 
