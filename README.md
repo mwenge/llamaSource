@@ -82,7 +82,7 @@ The page also contains disassemblies and playable versions of the numerous demos
 - Contains a good overview of [how to go about disassembling a C64 game](https://github.com/mwenge/gridrunner).
 - Check out [Gridrunner: The Little Black Book](https://github.com/mwenge/llamaSource/blob/main/GridrunnerTheLittleBlackBook.md), a work in progress discussion of the source code to the full Gridrunner series, including Gridrunner, Matrix, and Voidrunner.
 - Links to [a version you can try out in your browser.](https://mwenge.github.io/gridrunner.xyz)
-- A good first pass at documenting the source code.
+- [A good first pass at diassembling and documenting the source code.](https://github.com/mwenge/gridrunner)
 
 <br> 
 <br> 
@@ -93,7 +93,7 @@ The page also contains disassemblies and playable versions of the numerous demos
 The successor to Gridrunner. Faster, more enoyable. An underrated game.
 
 - Links to [a version you can try out in your browser.](https://mwenge.github.io/matrix.xyz)
-- A good first pass at documenting the source code.
+- [A good first pass at diassembling and documenting the source code.](https://github.com/mwenge/matrix)
 
 <br> 
 <br> 
@@ -105,7 +105,7 @@ One of Minter's later Vic 20 games, this is not very well known and as you can s
 box cover art. The most striking thing about Hellgate is its innovative gameplay and sheer frenetic pace.
 
 - Links to [a version you can try out in your browser.](https://mwenge.github.io/hellgate)
-- Nearly completed commented.
+- [A good first pass at diassembling and documenting the source code.](https://github.com/mwenge/hellgate)
 
 <br> 
 <br> 
@@ -116,7 +116,7 @@ box cover art. The most striking thing about Hellgate is its innovative gameplay
 
 Written for the Commodore 16 in 1987, Voidrunner is a continuation of the Gridrunner series. It takes advantage of the extra colors available to the C16 and has rapid gameplay. The disassembly is very clean as there is no compression or copy protection used in the binary. It should be possible to arrive at a very coherent disassembled source file in future work.
 
-- A good first pass at diassembling and documenting the source code.
+- [A good first pass at diassembling and documenting the source code.](https://github.com/mwenge/voidrunner)
 
 <br> 
 <br> 
@@ -127,7 +127,7 @@ Written for the Commodore 16 in 1987, Voidrunner is a continuation of the Gridru
 More manically fast gameplay on the Vic 20. An extremely compact game.
 
 - Links to [a version you can try out in your browser.](https://mwenge.github.io/metallama)
-- Mostly completely commented. Just some variables left over.
+- [Mostly completely commented.](https://github.com/mwenge/metallama) Just some variables left over.
 
 <br> 
 <br> 
@@ -138,7 +138,7 @@ More manically fast gameplay on the Vic 20. An extremely compact game.
 Minter's first light synthesizer.
 
 - Links to [a version you can try out in your browser.](https://mwenge.github.io/psychedelia)
-- Pretty complete. What remains is to dig into the internals of the pattern generation code and unpick how it works.
+- [Pretty complete.](https://github.com/mwenge/batalyx) What remains is to dig into the internals of the pattern generation code and unpick how it works.
 
 <br> 
 <br> 
@@ -149,6 +149,7 @@ Minter's first light synthesizer.
 A compendium of 5 bizarre sub-games, Batalyx is full of original gameplay and extremely original gameplay ideas.
 
 - Links to [a version you can try out in your browser.](https://batalyx.xyz)
+- [First pass, separating code and game data.](https://github.com/mwenge/batalyx)
 
 <br> 
 <br> 
@@ -160,7 +161,7 @@ A sort-of-predecessor to Iridis Alpha with many of the gameplay components prese
 as it feels comparatively slow compared to other Minger games.
 
 - Links to [a version you can try out in your browser.](https://mwenge.github.io/sheepinspace)
-- First pass, separating code and game data.
+- [First pass, separating code and game data.](https://github.com/mwenge/sheepinspace)
 
 <br> 
 <br> 
@@ -169,7 +170,7 @@ as it feels comparatively slow compared to other Minger games.
 <img src="https://upload.wikimedia.org/wikipedia/en/5/50/Revenge_of_the_Mutant_Camels_Coverart.png" height=300><img src="https://user-images.githubusercontent.com/58846/108626235-0e848d00-7447-11eb-869a-ca974b865506.gif" height=300>
 
 - Links to [a version you can try out in your browser.](https://mwenge.github.io/revengeofthemutantcamels)
-- First pass, separating code and game data.
+- [First pass, separating code and game data.](https://github.com/mwenge/revengeofthemutantcamels)
 
 <br> 
 <br> 
@@ -186,7 +187,7 @@ as it feels comparatively slow compared to other Minger games.
 <img src="https://upload.wikimedia.org/wikipedia/en/f/f2/Hover_Bovver_cover.png" height=300><img src="https://user-images.githubusercontent.com/58846/112737654-f1664100-8f53-11eb-87a8-7d099ca455be.png" height=300>
 
 - Links to [a version you can try out in your browser.](https://mwenge.github.io/hoverbovver)
-- First pass, separating code and game data.
+- [First pass, separating code and game data.](https://github.com/mwenge/hoverbovver)
 
 <br> 
 <br> 
@@ -194,7 +195,7 @@ as it feels comparatively slow compared to other Minger games.
 ## [Mama Llama](https://github.com/mwenge/mamallama)
 <img src="https://user-images.githubusercontent.com/58846/112850587-0f41bc00-90a2-11eb-8136-6943c4080076.png" height=300><img src="https://llamasoftarchive.org/wp-content/uploads/2017/06/IMG_2446.jpg" height=300>
 - Links to [a version you can try out in your browser.](https://mwenge.github.io/mamallama)
-- First pass, separating code and game data.
+- [First pass, separating code and game data.](https://github.com/mwenge/mamallama)
 
 <br> 
 <br> 
@@ -202,15 +203,15 @@ as it feels comparatively slow compared to other Minger games.
 ## [Ancipital](https://github.com/mwenge/ancipital)
 <img src="http://www.the-commodore-zone.com/articlelive/content_images/cover_ancipital_minter.jpg" height=300><img src="http://www.simplygames.net/wp-content/uploads/2017/08/Anciptal-screenshot-1.png" height=300>
 - Links to [a version you can try out in your browser.](https://mwenge.github.io/ancipital)
-- First pass, separating code and game data.
+- [First pass, separating code and game data.](https://github.com/mwenge/ancipital)
 
 <br> 
 <br> 
 
-## [Return of the Mutant Camels](https://github.com/mwenge/ancipital)
+## [Return of the Mutant Camels](https://github.com/mwenge/returnofthemutantcamels)
 <img src="https://user-images.githubusercontent.com/58846/113047803-adfd1400-9199-11eb-8af3-bd1e80b08488.png" height=300><img src="https://www.myabandonware.com/media/screenshots/r/return-of-the-mutant-camels-5qa/return-of-the-mutant-camels_4.png" height=300>
 - Links to [a version you can try out in your browser.](https://mwenge.github.io/returnofthemutantcamels)
-- First pass, separating code and game data.
+- [First pass, separating code and game data.](https://github.com/mwenge/returnofthemutantcamels)
 
 [C64 CharSet]:https://www.c64-wiki.com/wiki/Character_set
 [CBM Prg Studio]:https://www.ajordison.co.uk/
