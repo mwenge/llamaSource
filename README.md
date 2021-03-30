@@ -138,7 +138,7 @@ More manically fast gameplay on the Vic 20. An extremely compact game.
 Minter's first light synthesizer.
 
 - Links to [a version you can try out in your browser.](https://mwenge.github.io/psychedelia)
-- [Pretty complete.](https://github.com/mwenge/batalyx) What remains is to dig into the internals of the pattern generation code and unpick how it works.
+- [Pretty complete.](https://github.com/mwenge/psychedelia) What remains is to dig into the internals of the pattern generation code and unpick how it works.
 
 <br> 
 <br> 
