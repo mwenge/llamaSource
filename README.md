@@ -19,6 +19,7 @@
   * [Hover Bovver](#hover-bovver)
   * [Mama Llama](#mama-llama)
   * [Ancipital](#ancipital)
+  * [Return of the Mutant Camels](#return-of-the-mutant-camels)
 
 <!-- vim-markdown-toc -->
 ## Introduction
@@ -201,6 +202,14 @@ as it feels comparatively slow compared to other Minger games.
 ## [Ancipital](https://github.com/mwenge/ancipital)
 <img src="http://www.the-commodore-zone.com/articlelive/content_images/cover_ancipital_minter.jpg" height=300><img src="http://www.simplygames.net/wp-content/uploads/2017/08/Anciptal-screenshot-1.png" height=300>
 - Links to [a version you can try out in your browser.](https://mwenge.github.io/ancipital)
+- First pass, separating code and game data.
+
+<br> 
+<br> 
+
+## [Return of the Mutant Camels](https://github.com/mwenge/ancipital)
+<img src="https://user-images.githubusercontent.com/58846/113047803-adfd1400-9199-11eb-8af3-bd1e80b08488.png" height=300><img src="https://www.myabandonware.com/media/screenshots/r/return-of-the-mutant-camels-5qa/return-of-the-mutant-camels_4.png" height=300>
+- Links to [a version you can try out in your browser.](https://mwenge.github.io/returnofthemutantcamels)
 - First pass, separating code and game data.
 
 [C64 CharSet]:https://www.c64-wiki.com/wiki/Character_set
