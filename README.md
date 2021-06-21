@@ -69,7 +69,7 @@ This is the source code for Tempest 2000 by Jeff Minter originally published in 
 <br> 
 
 ## [Virtual Light Machine (1995) by Jeff Minter](https://github.com/mwenge/vlm)
-[<img src="https://user-images.githubusercontent.com/58846/122686598-c82f1700-d209-11eb-89b5-7f965b1cbec6.jpg" height=250><img src="https://user-images.githubusercontent.com/58846/122686679-6622e180-d20a-11eb-93db-3bb82dfb53a0.gif" height=250>](https://github.com/mwenge/vlm)
+[<img src="https://user-images.githubusercontent.com/58846/122686598-c82f1700-d209-11eb-89b5-7f965b1cbec6.jpg" height=200><img src="https://user-images.githubusercontent.com/58846/122686679-6622e180-d20a-11eb-93db-3bb82dfb53a0.gif" height=200>](https://github.com/mwenge/vlm)
 
 [<img src="https://img.shields.io/badge/Lastest%20Release-Jaguar-blue.svg">](https://github.com/mwenge/vlm/releases/download/v0.1/VirtualLightMachine.jag)
 
@@ -134,6 +134,7 @@ Minter's first light synthesizer.
 
 <br> 
 <br> 
+
 ## [Hellgate](https://github.com/mwenge/hellgate)
 <img src="https://www.mobygames.com/images/covers/l/510954-hellgate-commodore-64-front-cover.jpg" height=300><img src="https://user-images.githubusercontent.com/58846/104652406-f9327b00-56b0-11eb-948b-101ce169ef71.gif" height=300>
 
