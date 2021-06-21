@@ -174,19 +174,6 @@ More manically fast gameplay on the Vic 20. An extremely compact game.
 <br> 
 <br> 
 
-<<<<<<< HEAD
-## [Psychedelia](https://github.com/mwenge/psychedelia)
-[<img src="https://user-images.githubusercontent.com/58846/103469199-9e685d80-4d59-11eb-96c8-386b3a530809.png" height=300><img src="https://user-images.githubusercontent.com/58846/103463469-7dd1e080-4d24-11eb-93d2-7673ba031074.gif" height=300>](https://github.com/mwenge/psychedelia)
-
-Minter's first light synthesizer.
-
-- Links to [a version you can try out in your browser.](https://mwenge.github.io/psychedelia)
-- [Pretty complete.](https://github.com/mwenge/psychedelia) What remains is to dig into the internals of the pattern generation code and unpick how it works.
-
-<br> 
-<br> 
-=======
->>>>>>> Update READM
 
 ## [Batalyx](https://github.com/mwenge/batalyx)
 <img src="http://www.computinghistory.org.uk/userdata/images/large/54/11/product-85411.jpg" height=300><img src="https://i.ytimg.com/vi/4KmcFkCIKCc/hqdefault.jpg" height=300>
