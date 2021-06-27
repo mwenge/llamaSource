@@ -1,29 +1,38 @@
+
 <!-- vim-markdown-toc GFM -->
 
-  * [Introduction](#introduction)
+* [Introduction](#introduction)
 * [The Games](#the-games)
+  * [Tempest 2000 (1994) by Jeff Minter](#tempest-2000-1994-by-jeff-minter)
+  * [Virtual Light Machine (1995) by Jeff Minter](#virtual-light-machine-1995-by-jeff-minter)
   * [Iridis Alpha](#iridis-alpha)
   * [Gridrunner](#gridrunner)
   * [Matrix](#matrix)
+  * [Psychedelia](#psychedelia)
   * [Hellgate](#hellgate)
+  * [Attack of the Mutant Camels](#attack-of-the-mutant-camels)
   * [Voidrunner](#voidrunner)
   * [Metagalactic Llamas: Battle at the Edge of Time](#metagalactic-llamas-battle-at-the-edge-of-time)
-  * [Psychedelia](#psychedelia)
   * [Batalyx](#batalyx)
   * [Sheep in Space](#sheep-in-space)
   * [Revenge of the Mutant Camels](#revenge-of-the-mutant-camels)
-  * [Attack of the Mutant Camels](#attack-of-the-mutant-camels)
   * [Hover Bovver](#hover-bovver)
   * [Mama Llama](#mama-llama)
   * [Ancipital](#ancipital)
   * [Return of the Mutant Camels](#return-of-the-mutant-camels)
 
 <!-- vim-markdown-toc -->
-## Introduction
+# Introduction
 One by one I'm disassembling some games and programs published for the
-Commodore 64 by Llamasoft (i.e. Jeff Minter) in the 1980s.
+Commodore 64 and other platforms by Llamasoft (i.e. Jeff Minter).
 
-Some of these are relatively straightforward. In such cases I can simply
+For some games, such as Attack of the Mutant Camels on Konix and Tempest 2000 for the
+Atari Jaguar, the original source code is already available so all I have done is
+collect it in a form that allows you to compile and build the original game with
+modern Linux build toolchains.
+
+In the cases where the source code has to be reverse engineered the process
+is often relatively straightforward. I can simply
 disassemble the code (with a tool such as [Regenerator], split out the
 characterset and sprite data from the game logic, and recompile to a binary
 that matches exactly (byte for byte) the original game file. After that, I can
@@ -33,8 +42,8 @@ game.
 In other cases, the task isn't so trivial. Larger games such as Batalyx and
 Iridis Alpha used compression and copy-protection software so it is much
 harder, and may even be impossible, to produce a disassembled version that
-compiles a target which will match the original `prg` file. For these guys, I
-think I've had to work from a snapshot of the game while it's running
+compiles a target which will match the original `prg` file. For these guys,
+I've had to work from a snapshot of the game while it's running
 and just accept that the binary I end up compiling will not be a bytewise
 match, and may have bugs. If I don't find a way of reverse-engineering the
 compression and copy-protection that's what I will end up doing, for now.
@@ -49,6 +58,24 @@ focus is on completing a first pass on as many games as possible.
 
 
 # The Games
+## [Tempest 2000 (1994) by Jeff Minter](https://github.com/mwenge/tempest2k)
+[<img src="https://user-images.githubusercontent.com/58846/121210319-7da9b400-c873-11eb-87c0-7a8e6f4b425b.png" height=300><img src="https://user-images.githubusercontent.com/58846/121211760-a8e0d300-c874-11eb-9fec-fe6a47e9be1d.gif" height=300>](https://github.com/mwenge/tempest2k)
+
+This is the source code for Tempest 2000 by Jeff Minter originally published in 1994 for the ill-fated Atari Jaguar.
+
+<br> 
+<br> 
+
+## [Virtual Light Machine (1995) by Jeff Minter](https://github.com/mwenge/vlm)
+[<img src="https://user-images.githubusercontent.com/58846/122686598-c82f1700-d209-11eb-89b5-7f965b1cbec6.jpg" height=200><img src="https://user-images.githubusercontent.com/58846/122686679-6622e180-d20a-11eb-93db-3bb82dfb53a0.gif" height=200>](https://github.com/mwenge/vlm)
+
+[<img src="https://img.shields.io/badge/Lastest%20Release-Jaguar-blue.svg">](https://github.com/mwenge/vlm/releases/download/v0.1/VirtualLightMachine.jag)
+
+This is the reconstructed source code for the Virtual Light Machine by Jeff Minter originally published in 1995 for the ill-fated Atari Jaguar.
+
+<br> 
+<br> 
+
 ## [Iridis Alpha](https://github.com/mwenge/iridisalpha)
 [<img src="https://www.c64-wiki.com/images/a/a2/Iridisalphacover.jpg" height=300><img src="https://user-images.githubusercontent.com/58846/103442991-ae494a00-4c52-11eb-9432-0f6ed61d3a5a.gif" height=300>](https://github.com/mwenge/iridisalpha)
 
@@ -95,6 +122,17 @@ The successor to Gridrunner. Faster, more enoyable. An underrated game.
 <br> 
 <br> 
 
+## [Psychedelia](https://github.com/mwenge/psychedelia)
+[<img src="https://user-images.githubusercontent.com/58846/103469199-9e685d80-4d59-11eb-96c8-386b3a530809.png" height=300><img src="https://user-images.githubusercontent.com/58846/103463469-7dd1e080-4d24-11eb-93d2-7673ba031074.gif" height=300>](https://github.com/mwenge/psychedelia)
+
+Minter's first light synthesizer.
+
+- Links to [a version you can try out in your browser.](https://mwenge.github.io/psychedelia)
+- [Pretty complete.](https://github.com/mwenge/batalyx) What remains is to dig into the internals of the pattern generation code and unpick how it works.
+
+<br> 
+<br> 
+
 ## [Hellgate](https://github.com/mwenge/hellgate)
 <img src="https://www.mobygames.com/images/covers/l/510954-hellgate-commodore-64-front-cover.jpg" height=300><img src="https://user-images.githubusercontent.com/58846/104652406-f9327b00-56b0-11eb-948b-101ce169ef71.gif" height=300>
 
@@ -103,6 +141,14 @@ box cover art. The most striking thing about Hellgate is its innovative gameplay
 
 - Links to [a version you can try out in your browser.](https://mwenge.github.io/hellgate)
 - [A good first pass at diassembling and documenting the source code.](https://github.com/mwenge/hellgate)
+
+<br> 
+<br> 
+
+## [Attack of the Mutant Camels](https://github.com/mwenge/attackofthemutantcamels)
+<img src="https://upload.wikimedia.org/wikipedia/en/5/5b/Attack_of_the_Mutant_Camels_Cover_Art.jpg" height=300><img src="http://www.top80sgames.com/site/sites/default/files/images/screens/c64attackmutantcamels2.png" height=300>
+
+- Contains the versions for C64, Atari 8-bit and the unreleased version made for Konix.
 
 <br> 
 <br> 
@@ -129,16 +175,6 @@ More manically fast gameplay on the Vic 20. An extremely compact game.
 <br> 
 <br> 
 
-## [Psychedelia](https://github.com/mwenge/psychedelia)
-[<img src="https://user-images.githubusercontent.com/58846/103469199-9e685d80-4d59-11eb-96c8-386b3a530809.png" height=300><img src="https://user-images.githubusercontent.com/58846/103463469-7dd1e080-4d24-11eb-93d2-7673ba031074.gif" height=300>](https://github.com/mwenge/psychedelia)
-
-Minter's first light synthesizer.
-
-- Links to [a version you can try out in your browser.](https://mwenge.github.io/psychedelia)
-- [Pretty complete.](https://github.com/mwenge/batalyx) What remains is to dig into the internals of the pattern generation code and unpick how it works.
-
-<br> 
-<br> 
 
 ## [Batalyx](https://github.com/mwenge/batalyx)
 <img src="http://www.computinghistory.org.uk/userdata/images/large/54/11/product-85411.jpg" height=300><img src="https://i.ytimg.com/vi/4KmcFkCIKCc/hqdefault.jpg" height=300>
@@ -168,14 +204,6 @@ as it feels comparatively slow compared to other Minger games.
 
 - Links to [a version you can try out in your browser.](https://mwenge.github.io/revengeofthemutantcamels)
 - [First pass, separating code and game data.](https://github.com/mwenge/revengeofthemutantcamels)
-
-<br> 
-<br> 
-
-## [Attack of the Mutant Camels](https://github.com/C64-Mark/Attack-of-the-Mutant-Camels)
-<img src="https://upload.wikimedia.org/wikipedia/en/5/5b/Attack_of_the_Mutant_Camels_Cover_Art.jpg" height=300><img src="http://www.top80sgames.com/site/sites/default/files/images/screens/c64attackmutantcamels2.png" height=300>
-
-- A very complete disassembly of the game by C64-Mark
 
 <br> 
 <br> 
