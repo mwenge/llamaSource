@@ -95,13 +95,13 @@ best way of representing these byte values when writing computer code.
 
 
 
-```
-The Commodore 64 is often referred to as an '8-bit' computer. This is because
+
+>The Commodore 64 is often referred to as an '8-bit' computer. This is because
 each of its boxes or segments in memory can only contain 1 byte (or 8 bits) as
 described above. Computers that can store two bytes in one of the boxes or
 segments in their 'memory tape' are called 16-bit computers.  Those that can
 store 4 bytes are 32-bit. Those can store 8 bytes are 64 bit.
-```
+
 
 ### Hexadecimal Notation
 What is the best way of representing bytes when writing them down and thinking
