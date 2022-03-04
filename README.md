@@ -89,7 +89,7 @@ where the player can manipulate a double helix of technicolor eye-balls (!).
 - Links to [a version you can try out in your browser.](https://iridisalpha.xyz)
 - An overview of the [structure of the source code](https://github.com/mwenge/iridisalpha/tree/master/src). This gives you a good sense
 of how the different games are split out and what each file contains.
-- An overview of the [common patterns in Llamasoft C64 assembly](https://github.com/mwenge/iridisalpha/src/PATTERNS.md). I'm
+- An overview of the [common patterns in Llamasoft C64 assembly](PATTERNS.md). I'm
 trying to make this a good introduction to 'how things are done' in C64 assembly generally and in Llamasoft games in particular.
 If you are completely new to both, this should be readable and informative.
 
