@@ -1341,6 +1341,41 @@ b3952   LDA charsetLocation + $03C7,X
         JMP ScrollTextLoop
 ```
 ### Creating The Levels
+The levels in VIC20 Gridrunner are extremely basic. Each one is defined in terms simply of the number of
+droid squads each contains(`droidSquadsForLevels`) and the number of droids in each squad(`sizeOfDroidSquadsForLevels`):
+
+```asm
+droidSquadsForLevels =*-$01 
+                 .BYTE $01,$02,$06,$04,$06,$07,$04,$05
+                 .BYTE $0B,$07,$08,$09,$07,$06,$06,$07
+                 .BYTE $08,$07,$08,$09
+
+sizeOfDroidSquadsForLevels  =*-$01 
+                 .BYTE $07,$07,$05,$07,$06,$06,$09,$09
+                 .BYTE $03,$08,$08,$08,$09,$0A,$0B,$0A
+                 .BYTE $0A,$0B,$0B,$0B
+```
+Since there are twenty levels the configuration consists of two twenty-byte arrays. The first level contains
+a single droid squad consisting of seven droids. The second level has two squads of seven droids each, and so on.
+
+Using a simple array like this means that as we increment through the levels we can just use the current level
+number to index into each array and retrieve the number and size of droid squads.
+
+```asm
+;-------------------------------------------------------------------------
+; LoadDataForLevel
+;-------------------------------------------------------------------------
+LoadDataForLevel
+        LDY currentLevel
+        LDA droidSquadsForLevels,Y
+        STA noOfDroidSquadsCurrentLevel
+        LDA sizeOfDroidSquadsForLevels,Y
+        STA sizeOfDroidSquadForCurrentLevel
+        ASL ; Droids at any one time is double the droids in a squad
+        STA droidsLeftCurrentLevel
+        RTS 
+```
+
 ### Managing the Droids
 ### Managing Speed
 ### Some Early Anti-Patterns
