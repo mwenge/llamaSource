@@ -1,6 +1,6 @@
-# Gridrunner: The Little Black Book
-<img src="https://www.mobygames.com/images/covers/l/34991-gridrunner-commodore-64-front-cover.jpg" height=300>
 
+# Gridrunner: The Little Black Book
+<img height="300" alt="gridrunner2" src="https://github.com/user-attachments/assets/b31276a2-4c84-41bc-b952-c9c45d5d9b87" />
 
 <!-- vim-markdown-toc GFM -->
 
